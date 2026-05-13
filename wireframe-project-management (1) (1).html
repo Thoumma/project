@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProjectHub — Wireframe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans Lao', sans-serif; background: #f5f5f5; color: #222; font-size: 13px; }
+
+  /* Layout */
+  .app { display: flex; height: 100vh; }
+  .sidebar { width: 230px; background: #1a1a1a; color: #ccc; display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; }
+  .sidebar-logo { padding: 18px 20px; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 10px; }
+  .sidebar-logo .icon { width: 32px; height: 32px; border: 2px solid #888; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
+  .sidebar-logo span { font-size: 15px; font-weight: 600; color: #fff; }
+  .sidebar-nav { flex: 1; padding: 10px 8px; }
+  .sidebar-nav .nav-group { margin-bottom: 16px; }
+  .sidebar-nav .nav-group-title { font-size: 10px; text-transform: uppercase; color: #666; padding: 6px 14px; letter-spacing: 1px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; color: #999; transition: all 0.15s; border: 1px solid transparent; }
+  .nav-item:hover { background: #2a2a2a; color: #ddd; }
+  .nav-item.active { background: #333; color: #fff; border-color: #555; }
+  .nav-item .badge { margin-left: auto; background: #555; color: #ccc; font-size: 10px; padding: 1px 7px; border-radius: 10px; }
+  .sidebar-user { padding: 14px 20px; border-top: 1px solid #333; display: flex; align-items: center; gap: 10px; }
+  .sidebar-user .avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #666; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+
+  /* Main Area */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { height: 52px; background: #fff; border-bottom: 1px solid #ddd; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; flex-shrink: 0; }
+  .topbar h1 { font-size: 16px; font-weight: 600; }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .topbar-right input { padding: 6px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; width: 200px; font-family: inherit; }
+  .topbar-right .notif { position: relative; cursor: pointer; font-size: 16px; }
+  .topbar-right .notif-badge { position: absolute; top: -4px; right: -6px; width: 16px; height: 16px; background: #222; color: #fff; border-radius: 50%; font-size: 9px; display: flex; align-items: center; justify-content: center; }
+
+  .content { flex: 1; overflow-y: auto; padding: 24px; }
+
+  /* Cards */
+  .stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+  .stat-cards.three { grid-template-columns: repeat(3, 1fr); }
+  .stat-card { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px 18px; }
+  .stat-card .label { font-size: 11px; color: #888; margin-bottom: 4px; }
+  .stat-card .value { font-size: 24px; font-weight: 700; }
+  .stat-card .sub { font-size: 11px; color: #999; margin-top: 2px; }
+
+  /* Panels */
+  .panel { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+  .panel-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+
+  /* Buttons */
+  .btn { padding: 7px 16px; border-radius: 6px; font-size: 12px; cursor: pointer; font-family: inherit; border: 1px solid #ccc; background: #fff; color: #333; }
+  .btn:hover { background: #f0f0f0; }
+  .btn-primary { background: #222; color: #fff; border-color: #222; }
+  .btn-primary:hover { background: #444; }
+  .btn-sm { padding: 5px 12px; font-size: 11px; }
+  .btn-group { display: flex; gap: 6px; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { padding: 10px 12px; text-align: left; font-weight: 600; color: #666; background: #f9f9f9; border-bottom: 2px solid #ddd; }
+  td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+  tr:hover td { background: #fafafa; }
+
+  /* Tags */
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 10px; border: 1px solid #aaa; }
+  .tag-dark { background: #222; color: #fff; border-color: #222; }
+  .tag-outline { background: #fff; color: #555; }
+
+  /* Progress Bar */
+  .progress-bar { height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #555; border-radius: 10px; }
+  .progress-fill-striped { background: repeating-linear-gradient(45deg, #555, #555 5px, #777 5px, #777 10px); }
+
+  /* Kanban */
+  .kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kanban-col { background: #f0f0f0; border: 1px dashed #ccc; border-radius: 8px; padding: 12px; min-height: 200px; }
+  .kanban-col-title { font-size: 12px; font-weight: 600; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #aaa; display: flex; justify-content: space-between; }
+  .kanban-card { background: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 12px; margin-bottom: 8px; cursor: pointer; }
+  .kanban-card:hover { border-color: #888; }
+  .kanban-card .title { font-size: 12px; font-weight: 500; margin-bottom: 6px; }
+  .kanban-card .meta { font-size: 10px; color: #888; display: flex; justify-content: space-between; }
+
+  /* Grid Layout */
+  .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+  .grid-equal { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* List Items */
+  .list-item { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+  .list-item:last-child { border-bottom: none; }
+
+  /* Activity */
+  .activity-item { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: #888; margin-top: 5px; flex-shrink: 0; }
+
+  /* Risk Matrix */
+  .risk-matrix { display: grid; grid-template-columns: 80px repeat(3, 1fr); grid-template-rows: 30px repeat(3, 50px); gap: 4px; text-align: center; font-size: 11px; }
+  .risk-cell { border: 1px solid #ccc; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  .risk-low { background: #f5f5f5; }
+  .risk-med { background: #e0e0e0; }
+  .risk-high { background: #bbb; color: #fff; }
+  .risk-crit { background: #555; color: #fff; font-weight: 700; }
+  .risk-label { display: flex; align-items: center; justify-content: center; font-weight: 500; color: #666; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 2px solid #ddd; }
+  .tab { padding: 8px 20px; font-size: 12px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; color: #888; }
+  .tab:hover { color: #333; }
+  .tab.active { color: #222; border-bottom-color: #222; font-weight: 600; }
+
+  /* Form */
+  .form-row { display: flex; gap: 14px; margin-bottom: 14px; }
+  .form-group { flex: 1; }
+  .form-group label { display: block; font-size: 11px; color: #666; margin-bottom: 4px; font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
+  .form-group textarea { resize: vertical; min-height: 60px; }
+
+  /* Modal Overlay */
+  .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+  .modal { background: #fff; border-radius: 10px; padding: 24px; width: 600px; max-height: 80vh; overflow-y: auto; border: 2px solid #333; }
+  .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
+  .modal-close { cursor: pointer; font-size: 18px; color: #888; }
+
+  /* Timeline */
+  .timeline-item { display: flex; gap: 14px; padding: 12px 0; }
+  .timeline-line { display: flex; flex-direction: column; align-items: center; }
+  .timeline-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #888; background: #fff; flex-shrink: 0; }
+  .timeline-dot.filled { background: #555; border-color: #555; }
+  .timeline-connector { width: 2px; flex: 1; background: #ddd; margin-top: 4px; }
+
+  /* Flow Diagram */
+  .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 10px 0; }
+  .flow-step { padding: 6px 14px; border: 1px solid #999; border-radius: 4px; font-size: 11px; background: #fff; }
+  .flow-step.active { background: #222; color: #fff; border-color: #222; }
+  .flow-arrow { padding: 0 8px; color: #999; font-size: 14px; }
+
+  /* Sub-nav */
+  .sub-nav { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+
+  /* Wireframe annotation */
+  .annotation { background: #ffffcc; border: 1px solid #ddd; border-radius: 4px; padding: 8px 12px; font-size: 11px; color: #666; margin-bottom: 12px; font-style: italic; }
+
+  /* Approval flow */
+  .approval-step { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+  .approval-icon { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #999; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .approval-icon.done { background: #333; color: #fff; border-color: #333; }
+
+  .screen { display: none; }
+  .screen.visible { display: block; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+  .divider { border: none; border-top: 1px solid #eee; margin: 14px 0; }
+
+  .inline-list { display: flex; gap: 16px; font-size: 11px; color: #888; margin-top: 6px; }
+
+  .skeleton { background: #e8e8e8; border-radius: 4px; height: 12px; width: 100%; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="icon">PM</div>
+      <span>ProjectHub</span>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">ພາບລວມ</div>
+        <div class="nav-item active" data-screen="dashboard">📊 Dashboard</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">ໂຄງການ</div>
+        <div class="nav-item" data-screen="projects">📁 ໂຄງການ <span class="badge">4</span></div>
+        <div class="nav-item" data-screen="tasks">☑ Tasks <span class="badge">47</span></div>
+        <div class="nav-item" data-screen="milestones">🏁 Milestones</div>
+        <div class="nav-item" data-screen="calendar">📅 ປະຕິທິນ</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">ການເງິນ</div>
+        <div class="nav-item" data-screen="budget">💰 ງົບປະມານ</div>
+        <div class="nav-item" data-screen="installments">💳 ງວດເງິນ</div>
+        <div class="nav-item" data-screen="expenses">🧾 ລາຍຈ່າຍ</div>
+        <div class="nav-item" data-screen="invoices">📑 Invoice</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">ທີມ & ສື່ສານ</div>
+        <div class="nav-item" data-screen="team">👥 ທີມງານ</div>
+        <div class="nav-item" data-screen="notifications">🔔 ແຈ້ງເຕືອນ <span class="badge">5</span></div>
+        <div class="nav-item" data-screen="documents">📄 ເອກະສານ</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">ວິເຄາະ</div>
+        <div class="nav-item" data-screen="reports">📈 ລາຍງານ</div>
+        <div class="nav-item" data-screen="timetracking">⏱ Time Tracking</div>
+        <div class="nav-item" data-screen="risks">⚠ ຄວາມສ່ຽງ</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">ລະບົບ</div>
+        <div class="nav-item" data-screen="subscription">📦 Subscription</div>
+        <div class="nav-item" data-screen="settings">⚙ ຕັ້ງຄ່າ</div>
+        <div class="nav-item" data-screen="security">🔒 ຄວາມປອດໄພ</div>
+      </div>
+    </div>
+    <div class="sidebar-user">
+      <div class="avatar">A</div>
+      <div><div style="color:#fff;font-size:12px;font-weight:500">Admin User</div><div style="font-size:10px;color:#666">Pro Plan • ບໍລິສັດ ABC</div></div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="topbar-right">
+        <div class="notif">🔔<div class="notif-badge">5</div></div>
+        <input placeholder="ຄົ້ນຫາ ໂຄງການ, task, ເອກະສານ..." />
+        <div style="width:30px;height:30px;border-radius:50%;border:1px solid #aaa;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;">A</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ============ DASHBOARD ============ -->
+      <div class="screen visible" id="screen-dashboard">
+        <div class="stat-cards">
+          <div class="stat-card"><div class="label">ໂຄງການທັງໝົດ</div><div class="value">12</div><div class="sub">3 ກຳລັງດຳເນີນ • 1 ວາງແຜນ</div></div>
+          <div class="stat-card"><div class="label">Tasks ທີ່ຄ້າງ</div><div class="value">47</div><div class="sub">8 overdue ❗</div></div>
+          <div class="stat-card"><div class="label">ລາຍຮັບເດືອນນີ້</div><div class="value">$85,000</div><div class="sub">+12% ຈາກເດືອນກ່ອນ</div></div>
+          <div class="stat-card"><div class="label">ລາຍຈ່າຍເດືອນນີ້</div><div class="value">$52,300</div><div class="sub">78% ຂອງງົບ</div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-title">ຄວາມຄືບໜ້າໂຄງການ</div>
+            <div style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>ສ້າງເວັບໄຊ ບໍລິສັດ ABC</span><span>75%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+            </div>
+            <div style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>ລະບົບ POS ຮ້ານອາຫານ</span><span>45%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+            </div>
+            <div style="margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>App ຈັດສົ່ງສິນຄ້າ</span><span>90%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px"><span>ລະບົບ HR ບໍລິສັດ XYZ</span><span>20%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="panel">
+              <div class="panel-title">ງວດເງິນທີ່ໃກ້ຮອດ</div>
+              <div class="list-item"><div><div style="font-weight:500">ເວັບໄຊ ABC — ງວດ 3</div><div style="font-size:11px;color:#888">20 ກ.ພ. 2026</div></div><div style="font-weight:600">$12,500</div></div>
+              <div class="list-item"><div><div style="font-weight:500">POS — ງວດ 2</div><div style="font-size:11px;color:#888">28 ກ.ພ. 2026</div></div><div style="font-weight:600">$8,500</div></div>
+              <div class="list-item"><div><div style="font-weight:500">App ຈັດສົ່ງ — ງວດ 4</div><div style="font-size:11px;color:#888">05 ມີ.ນ. 2026</div></div><div style="font-weight:600">$10,000</div></div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">ຄວາມສ່ຽງ ❗</div>
+              <div style="font-size:12px;margin-bottom:8px">■ ວິກິດ: 1 &nbsp; ■ ສູງ: 3 &nbsp; □ ກາງ: 2 &nbsp; □ ຕໍ່າ: 2</div>
+              <div style="font-size:11px;color:#888">→ "ລູກຄ້າ ABC ອາດປ່ຽນ Requirement" (ວິກິດ)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">ກິດຈະກຳລ່າສຸດ</div>
+          <div class="activity-item"><div class="activity-dot"></div><div style="flex:1"><span style="font-weight:500">ສົມຈິດ</span> ສຳເລັດ Task "ອອກແບບ Homepage"<br><span style="font-size:10px;color:#999">10 ນາທີກ່ອນ</span></div></div>
+          <div class="activity-item"><div class="activity-dot"></div><div style="flex:1"><span style="font-weight:500">ວິໄລ</span> ອັບໂຫຼດໄຟລ໌ "Wireframe_v2.fig"<br><span style="font-size:10px;color:#999">1 ຊົ່ວໂມງກ່ອນ</span></div></div>
+          <div class="activity-item"><div class="activity-dot"></div><div style="flex:1"><span style="font-weight:500">ບຸນມີ</span> ບັນທຶກລາຍຈ່າຍ $2,500 (ຄ່າ Server)<br><span style="font-size:10px;color:#999">3 ຊົ່ວໂມງກ່ອນ</span></div></div>
+          <div class="activity-item"><div class="activity-dot"></div><div style="flex:1"><span style="font-weight:500">ລູກຄ້າ ABC</span> ຈ່າຍງວດ 2 ຈຳນວນ $15,000<br><span style="font-size:10px;color:#999">ມື້ວານ</span></div></div>
+          <div class="activity-item"><div class="activity-dot"></div><div style="flex:1"><span style="font-weight:500">Manager</span> ອະນຸມັດລາຍຈ່າຍ $450 (Figma License)<br><span style="font-size:10px;color:#999">ມື້ວານ</span></div></div>
+        </div>
+      </div>
+
+      <!-- ============ PROJECTS ============ -->
+      <div class="screen" id="screen-projects">
+        <div class="panel-header">
+          <div class="btn-group">
+            <button class="btn btn-primary btn-sm" onclick="showProjectView('kanban')">Kanban</button>
+            <button class="btn btn-sm" onclick="showProjectView('list')">List</button>
+            <button class="btn btn-sm" onclick="showProjectView('gantt')">Gantt</button>
+          </div>
+          <button class="btn btn-primary" onclick="showModal('modal-create-project')">+ ສ້າງໂຄງການ</button>
+        </div>
+
+        <div id="project-kanban">
+          <div class="kanban">
+            <div class="kanban-col">
+              <div class="kanban-col-title">📋 ວາງແຜນ <span>1</span></div>
+              <div class="kanban-card" onclick="showModal('modal-project-detail')">
+                <div class="title">ລະບົບ CRM ໃໝ່</div>
+                <div class="meta"><span>$30,000</span><span>👤 3</span></div>
+                <div style="margin-top:6px"><span class="tag">ບໍລິສັດ DEF</span></div>
+              </div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-col-title">🔄 ກຳລັງດຳເນີນ <span>2</span></div>
+              <div class="kanban-card" onclick="showModal('modal-project-detail')">
+                <div class="title">ເວັບໄຊ ບໍລິສັດ ABC</div>
+                <div class="meta"><span>$50,000</span><span>👤 5</span></div>
+                <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:75%"></div></div>
+                <div style="margin-top:6px;font-size:10px;color:#888">75% • Deadline: 30 ມີ.ນ.</div>
+              </div>
+              <div class="kanban-card">
+                <div class="title">POS ຮ້ານອາຫານ</div>
+                <div class="meta"><span>$25,000</span><span>👤 4</span></div>
+                <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:45%"></div></div>
+                <div style="margin-top:6px;font-size:10px;color:#888">45% • Deadline: 15 ເມ.ສ.</div>
+              </div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-col-title">🔍 ກວດສອບ <span>1</span></div>
+              <div class="kanban-card">
+                <div class="title">App ຈັດສົ່ງສິນຄ້າ</div>
+                <div class="meta"><span>$80,000</span><span>👤 8</span></div>
+                <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:90%"></div></div>
+                <div style="margin-top:6px;font-size:10px;color:#888">90% • Deadline: 28 ກ.ພ.</div>
+              </div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-col-title">✅ ສຳເລັດ <span>1</span></div>
+              <div class="kanban-card">
+                <div class="title">ເວັບໄຊ DEF</div>
+                <div class="meta"><span>$20,000</span><span>👤 3</span></div>
+                <div style="margin-top:6px"><span class="tag tag-dark">ປິດແລ້ວ</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="project-list" style="display:none">
+          <table>
+            <thead><tr><th>ຊື່ໂຄງການ</th><th>ລູກຄ້າ</th><th>ສະຖານະ</th><th>ງົບປະມານ</th><th>ຄືບໜ້າ</th><th>ທີມ</th><th>Deadline</th><th>ງວດເງິນ</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">ເວັບໄຊ ABC</td><td>ບໍລິສັດ ABC</td><td><span class="tag">ດຳເນີນ</span></td><td>$50,000</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:75%"></div></div> 75%</td><td>👤 5</td><td>30 ມີ.ນ.</td><td>2/4 ງວດ</td></tr>
+              <tr><td style="font-weight:500">POS ຮ້ານອາຫານ</td><td>ຮ້ານ XY</td><td><span class="tag">ດຳເນີນ</span></td><td>$25,000</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:45%"></div></div> 45%</td><td>👤 4</td><td>15 ເມ.ສ.</td><td>1/3 ງວດ</td></tr>
+              <tr><td style="font-weight:500">App ຈັດສົ່ງ</td><td>ບໍລິສັດ GH</td><td><span class="tag">ກວດສອບ</span></td><td>$80,000</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:90%"></div></div> 90%</td><td>👤 8</td><td>28 ກ.ພ.</td><td>3/4 ງວດ</td></tr>
+              <tr><td style="font-weight:500">ລະບົບ HR XYZ</td><td>ບໍລິສັດ XYZ</td><td><span class="tag">ວາງແຜນ</span></td><td>$30,000</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:20%"></div></div> 20%</td><td>👤 3</td><td>01 ມິ.ຖ.</td><td>0/3 ງວດ</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="project-gantt" style="display:none">
+          <div class="annotation">📐 Gantt Chart View — ສະແດງ timeline ຂອງທຸກໂຄງການ</div>
+          <div style="overflow-x:auto">
+            <div style="min-width:700px">
+              <div style="display:flex;border-bottom:1px solid #ddd;padding:8px 0;font-size:11px;color:#888">
+                <div style="width:180px">ໂຄງການ</div>
+                <div style="flex:1;display:flex"><span style="flex:1;text-align:center">ມ.ກ.</span><span style="flex:1;text-align:center">ກ.ພ.</span><span style="flex:1;text-align:center">ມີ.ນ.</span><span style="flex:1;text-align:center">ເມ.ສ.</span><span style="flex:1;text-align:center">ພ.ພ.</span><span style="flex:1;text-align:center">ມິ.ຖ.</span></div>
+              </div>
+              <div style="display:flex;padding:10px 0;border-bottom:1px solid #eee;align-items:center">
+                <div style="width:180px;font-size:12px;font-weight:500">ເວັບໄຊ ABC</div>
+                <div style="flex:1;position:relative;height:20px"><div style="position:absolute;left:0;width:50%;height:100%;background:#888;border-radius:4px"></div></div>
+              </div>
+              <div style="display:flex;padding:10px 0;border-bottom:1px solid #eee;align-items:center">
+                <div style="width:180px;font-size:12px;font-weight:500">POS ຮ້ານອາຫານ</div>
+                <div style="flex:1;position:relative;height:20px"><div style="position:absolute;left:16%;width:50%;height:100%;background:#aaa;border-radius:4px"></div></div>
+              </div>
+              <div style="display:flex;padding:10px 0;border-bottom:1px solid #eee;align-items:center">
+                <div style="width:180px;font-size:12px;font-weight:500">App ຈັດສົ່ງ</div>
+                <div style="flex:1;position:relative;height:20px"><div style="position:absolute;left:0;width:33%;height:100%;background:#555;border-radius:4px"></div></div>
+              </div>
+              <div style="display:flex;padding:10px 0;align-items:center">
+                <div style="width:180px;font-size:12px;font-weight:500">ລະບົບ HR XYZ</div>
+                <div style="flex:1;position:relative;height:20px"><div style="position:absolute;left:33%;width:50%;height:100%;background:#ccc;border-radius:4px"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ TASKS ============ -->
+      <div class="screen" id="screen-tasks">
+        <div class="panel-header">
+          <div class="btn-group">
+            <button class="btn btn-sm btn-primary">ທັງໝົດ</button>
+            <button class="btn btn-sm">ຂອງຂ້ອຍ</button>
+            <button class="btn btn-sm">Overdue ❗</button>
+          </div>
+          <div class="btn-group">
+            <select style="padding:5px 10px;border:1px solid #ccc;border-radius:6px;font-size:11px;font-family:inherit"><option>ທຸກໂຄງການ</option><option>ເວັບໄຊ ABC</option><option>POS ຮ້ານອາຫານ</option></select>
+            <button class="btn btn-primary" onclick="showModal('modal-create-task')">+ ສ້າງ Task</button>
+          </div>
+        </div>
+        <div class="kanban">
+          <div class="kanban-col">
+            <div class="kanban-col-title">📋 To Do <span>3</span></div>
+            <div class="kanban-card" onclick="showModal('modal-task-detail')">
+              <div class="title">ອອກແບບ Database Schema</div>
+              <div style="margin:6px 0"><span class="tag tag-dark">ສູງ</span></div>
+              <div class="meta"><span>👤 ສົມຈິດ</span><span>📅 22 ກ.ພ.</span></div>
+              <div style="font-size:10px;color:#888;margin-top:4px">📁 ເວັບໄຊ ABC • ⏱ 0/8h</div>
+            </div>
+            <div class="kanban-card">
+              <div class="title">ຂຽນ API ລົງທະບຽນ</div>
+              <div style="margin:6px 0"><span class="tag">ກາງ</span></div>
+              <div class="meta"><span>👤 ວິໄລ</span><span>📅 25 ກ.ພ.</span></div>
+              <div style="font-size:10px;color:#888;margin-top:4px">📁 ເວັບໄຊ ABC • ⏱ 0/6h</div>
+              <div style="font-size:10px;color:#888;margin-top:2px">⛓ ຕ້ອງລໍ: ອອກແບບ Database</div>
+            </div>
+            <div class="kanban-card">
+              <div class="title">ປະຊຸມ Kickoff ກັບລູກຄ້າ</div>
+              <div style="margin:6px 0"><span class="tag">ຕໍ່າ</span></div>
+              <div class="meta"><span>👤 Manager</span><span>📅 24 ກ.ພ.</span></div>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-title">🔄 In Progress <span>3</span></div>
+            <div class="kanban-card">
+              <div class="title">ອອກແບບ Homepage UI</div>
+              <div style="margin:6px 0"><span class="tag tag-dark">ສູງ</span></div>
+              <div class="meta"><span>👤 ບຸນມີ</span><span>📅 18 ກ.ພ. ❗</span></div>
+              <div style="font-size:10px;color:#888;margin-top:4px">📁 ເວັບໄຊ ABC • ⏱ 12/16h</div>
+              <div style="font-size:10px;margin-top:2px">💬 3 comments</div>
+            </div>
+            <div class="kanban-card">
+              <div class="title">ເຊື່ອມຕໍ່ Payment Gateway</div>
+              <div style="margin:6px 0"><span class="tag">ກາງ</span></div>
+              <div class="meta"><span>👤 ສົມຈິດ</span><span>📅 20 ກ.ພ.</span></div>
+              <div style="font-size:10px;color:#888;margin-top:4px">📁 POS • ⏱ 4/10h</div>
+            </div>
+            <div class="kanban-card">
+              <div class="title">ຂຽນ Unit Test</div>
+              <div style="margin:6px 0"><span class="tag">ກາງ</span></div>
+              <div class="meta"><span>👤 ວິໄລ</span><span>📅 21 ກ.ພ.</span></div>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-title">🔍 Review <span>2</span></div>
+            <div class="kanban-card">
+              <div class="title">ທົດສອບ Login System</div>
+              <div style="margin:6px 0"><span class="tag">ຕໍ່າ</span></div>
+              <div class="meta"><span>👤 ວິໄລ</span><span>📅 16 ກ.ພ.</span></div>
+              <div style="font-size:10px;margin-top:4px">📎 2 ໄຟລ໌ແນບ</div>
+            </div>
+            <div class="kanban-card">
+              <div class="title">ກວດ UI Responsive</div>
+              <div style="margin:6px 0"><span class="tag">ກາງ</span></div>
+              <div class="meta"><span>👤 ບຸນມີ</span><span>📅 19 ກ.ພ.</span></div>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-col-title">✅ Done <span>2</span></div>
+            <div class="kanban-card" style="opacity:0.6">
+              <div class="title" style="text-decoration:line-through">ຕິດຕັ້ງ Server</div>
+              <div class="meta"><span>👤 ບຸນມີ</span><span>✅ 10 ກ.ພ.</span></div>
+            </div>
+            <div class="kanban-card" style="opacity:0.6">
+              <div class="title" style="text-decoration:line-through">ອອກແບບ Logo</div>
+              <div class="meta"><span>👤 ສົມຈິດ</span><span>✅ 08 ກ.ພ.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ MILESTONES ============ -->
+      <div class="screen" id="screen-milestones">
+        <div class="panel-header"><h3 style="font-size:14px">Milestones — ເວັບໄຊ ບໍລິສັດ ABC</h3><button class="btn btn-primary btn-sm">+ ສ້າງ Milestone</button></div>
+        <div class="panel">
+          <div class="timeline-item">
+            <div class="timeline-line"><div class="timeline-dot filled"></div><div class="timeline-connector"></div></div>
+            <div style="flex:1"><div style="font-weight:600">✅ Milestone 1: ອອກແບບ (Design)</div><div style="font-size:11px;color:#888;margin-top:4px">01 ມ.ກ. — 31 ມ.ກ. • Tasks: 5/5 ສຳເລັດ • ງວດ 1: $12,500 ✅</div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-line"><div class="timeline-dot filled"></div><div class="timeline-connector"></div></div>
+            <div style="flex:1"><div style="font-weight:600">✅ Milestone 2: ພັດທະນາ Frontend</div><div style="font-size:11px;color:#888;margin-top:4px">01 ກ.ພ. — 28 ກ.ພ. • Tasks: 8/8 ສຳເລັດ • ງວດ 2: $15,000 ✅</div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-connector"></div></div>
+            <div style="flex:1"><div style="font-weight:600">🔄 Milestone 3: ພັດທະນາ Backend</div><div style="font-size:11px;color:#888;margin-top:4px">01 ມີ.ນ. — 15 ມີ.ນ. • Tasks: 3/7 ສຳເລັດ (43%) • ງວດ 3: $12,500 ⏳</div>
+              <div class="progress-bar" style="width:200px;margin-top:6px"><div class="progress-fill" style="width:43%"></div></div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-line"><div class="timeline-dot"></div></div>
+            <div style="flex:1"><div style="font-weight:600">🔒 Milestone 4: ທົດສອບ & ປິດ</div><div style="font-size:11px;color:#888;margin-top:4px">16 ມີ.ນ. — 30 ມີ.ນ. • Tasks: 0/4 • ງວດ 4: $10,000 🔒</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ CALENDAR ============ -->
+      <div class="screen" id="screen-calendar">
+        <div class="panel-header"><h3 style="font-size:14px">📅 ປະຕິທິນ — ກຸມພາ 2026</h3><div class="btn-group"><button class="btn btn-sm">← ເດືອນກ່ອນ</button><button class="btn btn-sm btn-primary">ມື້ນີ້</button><button class="btn btn-sm">ເດືອນໜ້າ →</button></div></div>
+        <div class="panel">
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:#ddd;border:1px solid #ddd;border-radius:6px;overflow:hidden">
+            <div style="background:#f0f0f0;padding:8px;text-align:center;font-size:11px;font-weight:600">ຈັນ</div>
+            <div style="background:#f0f0f0;padding:8px;text-align:center;font-size:11px;font-weight:600">ອັງ</div>
+            <div style="background:#f0f0f0;padding:8px;text-align:center;font-size:11px;font-weight:600">ພຸດ</div>
+            <div style="background:#f0f0f0;padding:8px;text-align:center;font-size:11px;font-weight:600">ພະຫັດ</div>
+            <div style="background:#f0f0f0;padding:8px;text-align:center;font-size:11px;font-weight:600">ສຸກ</div>
+            <div style="background:#f0f0f0;padding:8px;text-align:center;font-size:11px;font-weight:600">ເສົາ</div>
+            <div style="background:#f0f0f0;padding:8px;text-align:center;font-size:11px;font-weight:600">ອາ</div>
+            <div style="background:#fff;padding:8px;min-height:70px;color:#ccc">26</div>
+            <div style="background:#fff;padding:8px;min-height:70px;color:#ccc">27</div>
+            <div style="background:#fff;padding:8px;min-height:70px;color:#ccc">28</div>
+            <div style="background:#fff;padding:8px;min-height:70px;color:#ccc">29</div>
+            <div style="background:#fff;padding:8px;min-height:70px;color:#ccc">30</div>
+            <div style="background:#fff;padding:8px;min-height:70px;color:#ccc">31</div>
+            <div style="background:#fff;padding:8px;min-height:70px">1</div>
+            <div style="background:#fff;padding:8px;min-height:70px">2</div>
+            <div style="background:#fff;padding:8px;min-height:70px">3</div>
+            <div style="background:#fff;padding:8px;min-height:70px">4</div>
+            <div style="background:#fff;padding:8px;min-height:70px">5</div>
+            <div style="background:#fff;padding:8px;min-height:70px">6</div>
+            <div style="background:#fff;padding:8px;min-height:70px">7</div>
+            <div style="background:#fff;padding:8px;min-height:70px">8</div>
+            <div style="background:#fff;padding:8px;min-height:70px">9</div>
+            <div style="background:#fff;padding:8px;min-height:70px">10</div>
+            <div style="background:#fff;padding:8px;min-height:70px">11</div>
+            <div style="background:#fff;padding:8px;min-height:70px">12</div>
+            <div style="background:#fff;padding:8px;min-height:70px">13</div>
+            <div style="background:#eee;padding:8px;min-height:70px;font-weight:600">14 <div style="font-size:9px;background:#222;color:#fff;padding:2px 4px;border-radius:3px;margin-top:4px">📅 ມື້ນີ້</div></div>
+            <div style="background:#fff;padding:8px;min-height:70px">15</div>
+            <div style="background:#fff;padding:8px;min-height:70px">16 <div style="font-size:9px;background:#ccc;padding:2px 4px;border-radius:3px;margin-top:4px">Review Login</div></div>
+            <div style="background:#fff;padding:8px;min-height:70px">17</div>
+            <div style="background:#fff;padding:8px;min-height:70px">18 <div style="font-size:9px;background:#ccc;padding:2px 4px;border-radius:3px;margin-top:4px">❗ Homepage</div></div>
+            <div style="background:#fff;padding:8px;min-height:70px">19</div>
+            <div style="background:#fff;padding:8px;min-height:70px">20 <div style="font-size:9px;background:#555;color:#fff;padding:2px 4px;border-radius:3px;margin-top:4px">💰 ງວດ ABC</div></div>
+            <div style="background:#fff;padding:8px;min-height:70px">21</div>
+            <div style="background:#fff;padding:8px;min-height:70px">22 <div style="font-size:9px;background:#ccc;padding:2px 4px;border-radius:3px;margin-top:4px">DB Schema</div></div>
+            <div style="background:#fff;padding:8px;min-height:70px">23</div>
+            <div style="background:#fff;padding:8px;min-height:70px">24</div>
+            <div style="background:#fff;padding:8px;min-height:70px">25</div>
+            <div style="background:#fff;padding:8px;min-height:70px">26</div>
+            <div style="background:#fff;padding:8px;min-height:70px">27</div>
+            <div style="background:#fff;padding:8px;min-height:70px">28 <div style="font-size:9px;background:#555;color:#fff;padding:2px 4px;border-radius:3px;margin-top:4px">🏁 App ສົ່ງມອບ</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ BUDGET ============ -->
+      <div class="screen" id="screen-budget">
+        <div class="stat-cards three">
+          <div class="stat-card"><div class="label">ງົບປະມານລວມ</div><div class="value">$185,000</div></div>
+          <div class="stat-card"><div class="label">ໃຊ້ຈ່າຍແລ້ວ</div><div class="value">$98,500</div><div class="sub">53% ຂອງງົບ</div></div>
+          <div class="stat-card"><div class="label">ຍັງເຫຼືອ</div><div class="value">$86,500</div><div class="sub">47%</div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">ງົບປະມານຕາມໂຄງການ <button class="btn btn-sm btn-primary" onclick="showModal('modal-add-budget')">+ ກຳນົດງົບ</button></div>
+          <table>
+            <thead><tr><th>ໂຄງການ</th><th>ງົບລວມ</th><th>ຄ່າແຮງ</th><th>ຄ່າວັດສະດຸ</th><th>ອື່ນໆ</th><th>ໃຊ້ແລ້ວ</th><th>ເຫຼືອ</th><th>Burn Rate</th><th>ສະຖານະ</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">ເວັບໄຊ ABC</td><td>$50,000</td><td>$19,000</td><td>$11,400</td><td>$7,600</td><td>$38,000</td><td>$12,000</td><td>$12,667/ດ</td><td>■ 76% ⚠</td></tr>
+              <tr><td style="font-weight:500">POS</td><td>$25,000</td><td>$5,250</td><td>$3,150</td><td>$2,100</td><td>$10,500</td><td>$14,500</td><td>$5,250/ດ</td><td>□ 42%</td></tr>
+              <tr><td style="font-weight:500">App ຈັດສົ່ງ</td><td>$80,000</td><td>$21,000</td><td>$12,600</td><td>$8,400</td><td>$42,000</td><td>$38,000</td><td>$14,000/ດ</td><td>□ 53%</td></tr>
+              <tr><td style="font-weight:500">HR XYZ</td><td>$30,000</td><td>$4,000</td><td>$2,400</td><td>$1,600</td><td>$8,000</td><td>$22,000</td><td>$8,000/ດ</td><td>□ 27%</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="annotation">📐 Threshold ແຈ້ງເຕືອນ: □ &lt; 60% ປົກກະຕິ | ■ 60-80% ລະວັງ | ■ 80-100% ອັນຕະລາຍ | ■ &gt;100% ເກີນງົບ</div>
+      </div>
+
+      <!-- ============ INSTALLMENTS ============ -->
+      <div class="screen" id="screen-installments">
+        <div class="stat-cards three">
+          <div class="stat-card"><div class="label">ມູນຄ່າສັນຍາລວມ</div><div class="value">$185,000</div></div>
+          <div class="stat-card"><div class="label">ຮັບແລ້ວ</div><div class="value">$112,500</div><div class="sub">61%</div></div>
+          <div class="stat-card"><div class="label">ຄ້າງຮັບ</div><div class="value">$72,500</div><div class="sub">39%</div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">ໂຄງການ: ເວັບໄຊ ບໍລິສັດ ABC — $50,000 (4 ງວດ) <button class="btn btn-sm" onclick="showModal('modal-setup-installment')">⚙ ຕັ້ງຄ່າງວດ</button></div>
+          <table>
+            <thead><tr><th>ງວດ</th><th>ເງື່ອນໄຂ</th><th>Milestone</th><th>ຈຳນວນ</th><th>%</th><th>ກຳນົດຈ່າຍ</th><th>ວັນທີ່ຈ່າຍ</th><th>ສະຖານະ</th><th>Invoice</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>ເຊັນສັນຍາ</td><td>—</td><td style="font-weight:600">$12,500</td><td>25%</td><td>01 ມ.ກ.</td><td>01 ມ.ກ.</td><td><span class="tag tag-dark">✅ ຈ່າຍແລ້ວ</span></td><td><a href="#">INV-001</a></td></tr>
+              <tr><td>2</td><td>ສົ່ງມອບ Phase 1</td><td>Milestone 2</td><td style="font-weight:600">$15,000</td><td>30%</td><td>15 ກ.ພ.</td><td>15 ກ.ພ.</td><td><span class="tag tag-dark">✅ ຈ່າຍແລ້ວ</span></td><td><a href="#">INV-002</a></td></tr>
+              <tr style="background:#f9f9f9"><td>3</td><td>ສົ່ງມອບ Phase 2</td><td>Milestone 3</td><td style="font-weight:600">$12,500</td><td>25%</td><td>15 ມີ.ນ.</td><td>—</td><td><span class="tag">⏳ ລໍຖ້າ</span></td><td><button class="btn btn-sm">ສ້າງ Invoice</button></td></tr>
+              <tr><td>4</td><td>ປິດໂຄງການ</td><td>Milestone 4</td><td style="font-weight:600">$10,000</td><td>20%</td><td>30 ມີ.ນ.</td><td>—</td><td><span class="tag">🔒 ຍັງບໍ່ຮອດ</span></td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-equal">
+          <div class="panel">
+            <div class="panel-title">Cash Flow: ລາຍຮັບ vs ລາຍຈ່າຍ</div>
+            <div style="font-size:12px">
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee"><span>ມ.ກ.</span><span>ຮັບ: $12,500 | ຈ່າຍ: $8,000 | +$4,500</span></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee"><span>ກ.ພ.</span><span>ຮັບ: $15,000 | ຈ່າຍ: $18,000 | -$3,000 ⚠</span></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee"><span>ມີ.ນ. (ຄາດ)</span><span>ຮັບ: $22,500 | ຈ່າຍ: $12,000 | +$10,500</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">ສະຫຼຸບທຸກໂຄງການ</div>
+            <div class="list-item"><div><div style="font-weight:500">ເວັບໄຊ ABC</div><div style="font-size:10px;color:#888">2/4 ງວດ ✅</div></div><div>$27,500 / $50,000</div></div>
+            <div class="list-item"><div><div style="font-weight:500">POS ຮ້ານອາຫານ</div><div style="font-size:10px;color:#888">1/3 ງວດ ✅</div></div><div>$8,000 / $25,000</div></div>
+            <div class="list-item"><div><div style="font-weight:500">App ຈັດສົ່ງ</div><div style="font-size:10px;color:#888">3/4 ງວດ ✅</div></div><div>$60,000 / $80,000</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ EXPENSES ============ -->
+      <div class="screen" id="screen-expenses">
+        <div class="panel-header"><h3 style="font-size:14px">ບັນທຶກລາຍຈ່າຍ</h3><button class="btn btn-primary" onclick="showModal('modal-add-expense')">+ ບັນທຶກລາຍຈ່າຍ</button></div>
+        <div class="panel">
+          <div class="tabs"><div class="tab active">ທັງໝົດ</div><div class="tab">ລໍຖ້າອະນຸມັດ (3)</div><div class="tab">ອະນຸມັດແລ້ວ</div><div class="tab">ປະຕິເສດ</div></div>
+          <table>
+            <thead><tr><th>ວັນທີ</th><th>ລາຍລະອຽດ</th><th>ໂຄງການ</th><th>ໝວດ</th><th>ຈຳນວນ</th><th>ໂດຍ</th><th>ໃບບິນ</th><th>ສະຖານະ</th></tr></thead>
+            <tbody>
+              <tr><td>14 ກ.ພ.</td><td>ຄ່າ Cloud Server (AWS)</td><td>App ຈັດສົ່ງ</td><td>ວັດສະດຸ</td><td style="font-weight:600">$2,500</td><td>ບຸນມີ</td><td>📎</td><td><span class="tag">⏳ ລໍຖ້າ</span> <button class="btn btn-sm" style="margin-left:4px">✓</button> <button class="btn btn-sm">✗</button></td></tr>
+              <tr><td>13 ກ.ພ.</td><td>ຄ່າ License Figma</td><td>ເວັບໄຊ ABC</td><td>ວັດສະດຸ</td><td style="font-weight:600">$450</td><td>ສົມຈິດ</td><td>📎</td><td><span class="tag tag-dark">✅ ອະນຸມັດ</span></td></tr>
+              <tr><td>12 ກ.ພ.</td><td>ຄ່າເດີນທາງ ປະຊຸມລູກຄ້າ</td><td>POS</td><td>ເດີນທາງ</td><td style="font-weight:600">$180</td><td>ວິໄລ</td><td>📎</td><td><span class="tag">⏳ ລໍຖ້າ</span> <button class="btn btn-sm" style="margin-left:4px">✓</button> <button class="btn btn-sm">✗</button></td></tr>
+              <tr><td>10 ກ.ພ.</td><td>ຄ່າຈ້າງ Freelancer</td><td>ເວັບໄຊ ABC</td><td>ແຮງງານ</td><td style="font-weight:600">$3,000</td><td>Manager</td><td>📎</td><td><span class="tag tag-dark">✅ ອະນຸມັດ</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="annotation">📐 Approval Workflow: ≤$500 → ອະນຸມັດອັດຕະໂນມັດ | ≤$5,000 → Manager ອະນຸມັດ | &gt;$5,000 → Director ອະນຸມັດ</div>
+      </div>
+
+      <!-- ============ INVOICES ============ -->
+      <div class="screen" id="screen-invoices">
+        <div class="panel-header"><h3 style="font-size:14px">Invoice ທັງໝົດ</h3><button class="btn btn-primary" onclick="showModal('modal-create-invoice')">+ ສ້າງ Invoice</button></div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>ເລກ Invoice</th><th>ໂຄງການ</th><th>ລູກຄ້າ</th><th>ງວດ</th><th>ຈຳນວນ</th><th>ວັນທີ່ສ້າງ</th><th>ກຳນົດຈ່າຍ</th><th>ສະຖານະ</th><th></th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:600">INV-001</td><td>ເວັບໄຊ ABC</td><td>ບໍລິສັດ ABC</td><td>ງວດ 1</td><td>$12,500</td><td>01 ມ.ກ.</td><td>15 ມ.ກ.</td><td><span class="tag tag-dark">✅ ຈ່າຍ</span></td><td>📥 PDF</td></tr>
+              <tr><td style="font-weight:600">INV-002</td><td>ເວັບໄຊ ABC</td><td>ບໍລິສັດ ABC</td><td>ງວດ 2</td><td>$15,000</td><td>01 ກ.ພ.</td><td>15 ກ.ພ.</td><td><span class="tag tag-dark">✅ ຈ່າຍ</span></td><td>📥 PDF</td></tr>
+              <tr><td style="font-weight:600">INV-003</td><td>POS</td><td>ຮ້ານ XY</td><td>ງວດ 1</td><td>$8,000</td><td>15 ມ.ກ.</td><td>30 ມ.ກ.</td><td><span class="tag tag-dark">✅ ຈ່າຍ</span></td><td>📥 PDF</td></tr>
+              <tr style="background:#f9f9f9"><td style="font-weight:600">INV-004</td><td>App ຈັດສົ່ງ</td><td>ບໍລິສັດ GH</td><td>ງວດ 3</td><td>$20,000</td><td>10 ກ.ພ.</td><td>25 ກ.ພ.</td><td><span class="tag">⏳ ລໍຖ້າ</span></td><td>📥 PDF | ✉ ສົ່ງ</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ============ TEAM ============ -->
+      <div class="screen" id="screen-team">
+        <div class="panel-header"><h3 style="font-size:14px">ສະມາຊິກທີມ</h3><button class="btn btn-primary" onclick="showModal('modal-invite')">+ ເຊີນສະມາຊິກ</button></div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>ຊື່</th><th>Email</th><th>Role</th><th>ໂຄງການ</th><th>Tasks (ຄ້າງ)</th><th>Workload</th><th>ຊົ່ວໂມງ/ອາທິດ</th><th></th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">👤 ສົມຈິດ</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="582b373532312c1835393134763b3735">[email&#160;protected]</a></td><td><span class="tag tag-dark">Admin</span></td><td>3</td><td>8</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:85%"></div></div> 85%</td><td>34h</td><td><button class="btn btn-sm">⚙</button></td></tr>
+              <tr><td style="font-weight:500">👤 ວິໄລ</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b0d12171a123b161a121755181416">[email&#160;protected]</a></td><td><span class="tag">Manager</span></td><td>2</td><td>5</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:60%"></div></div> 60%</td><td>24h</td><td><button class="btn btn-sm">⚙</button></td></tr>
+              <tr><td style="font-weight:500">👤 ບຸນມີ</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="07656872696a7e476a666e6b2964686a">[email&#160;protected]</a></td><td><span class="tag">Member</span></td><td>2</td><td>6</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:95%"></div></div> 95% ⚠</td><td>38h</td><td><button class="btn btn-sm">⚙</button></td></tr>
+              <tr><td style="font-weight:500">👤 ແກ້ວ</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7912181c0e3914181015571a1614">[email&#160;protected]</a></td><td><span class="tag">Member</span></td><td>1</td><td>3</td><td><div class="progress-bar" style="width:80px;display:inline-block"><div class="progress-fill" style="width:40%"></div></div> 40%</td><td>16h</td><td><button class="btn btn-sm">⚙</button></td></tr>
+              <tr><td style="font-weight:500">👤 ລູກຄ້າ ABC</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5437383d313a20143536377a373b39">[email&#160;protected]</a></td><td><span class="tag">Viewer</span></td><td>1</td><td>—</td><td>—</td><td>—</td><td><button class="btn btn-sm">⚙</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="annotation">📐 Roles: Admin (ທັງໝົດ) → Manager (ບໍລິຫານ+ອະນຸມັດ) → Member (ເຮັດວຽກ) → Viewer (ເບິ່ງ). ວົງເງິນອະນຸມັດ: Manager ≤$5,000 | Admin ທັງໝົດ</div>
+      </div>
+
+      <!-- ============ NOTIFICATIONS ============ -->
+      <div class="screen" id="screen-notifications">
+        <div class="panel-header"><h3 style="font-size:14px">ແຈ້ງເຕືອນ</h3><button class="btn btn-sm">✓ ອ່ານທັງໝົດ</button></div>
+        <div class="panel">
+          <div class="tabs"><div class="tab active">ທັງໝົດ (12)</div><div class="tab">ຍັງບໍ່ອ່ານ (5)</div><div class="tab">Task</div><div class="tab">ການເງິນ</div><div class="tab">ລະບົບ</div></div>
+          <div class="activity-item" style="background:#f5f5f5;padding:12px;border-radius:6px;margin-bottom:6px"><div class="activity-dot" style="background:#222"></div><div style="flex:1"><div style="font-weight:500">💰 ງວດ 3 ເວັບໄຊ ABC ໃກ້ຮອດກຳນົດ (20 ກ.ພ.)</div><div style="font-size:10px;color:#888">2 ຊົ່ວໂມງກ່ອນ • ການເງິນ</div></div></div>
+          <div class="activity-item" style="background:#f5f5f5;padding:12px;border-radius:6px;margin-bottom:6px"><div class="activity-dot" style="background:#222"></div><div style="flex:1"><div style="font-weight:500">❗ Task "ອອກແບບ Homepage" ເກີນ Deadline</div><div style="font-size:10px;color:#888">5 ຊົ່ວໂມງກ່ອນ • Task</div></div></div>
+          <div class="activity-item" style="background:#f5f5f5;padding:12px;border-radius:6px;margin-bottom:6px"><div class="activity-dot" style="background:#222"></div><div style="flex:1"><div style="font-weight:500">🧾 ລາຍຈ່າຍ $2,500 ລໍຖ້າອະນຸມັດ</div><div style="font-size:10px;color:#888">6 ຊົ່ວໂມງກ່ອນ • ການເງິນ</div></div></div>
+          <div class="activity-item" style="padding:12px;margin-bottom:6px"><div class="activity-dot"></div><div style="flex:1"><div>⚠ ຄວາມສ່ຽງ "ປ່ຽນ Requirement" ຖືກຍົກລະດັບເປັນ ວິກິດ</div><div style="font-size:10px;color:#888">ມື້ວານ • ລະບົບ</div></div></div>
+          <div class="activity-item" style="padding:12px;margin-bottom:6px"><div class="activity-dot"></div><div style="flex:1"><div>👤 ວິໄລ @mention ທ່ານ ໃນ Task "API ລົງທະບຽນ"</div><div style="font-size:10px;color:#888">ມື້ວານ • Task</div></div></div>
+          <div class="activity-item" style="padding:12px;margin-bottom:6px"><div class="activity-dot"></div><div style="flex:1"><div>📁 ບຸນມີ ອັບໂຫຼດ "server-config.yml" ໃນ App ຈັດສົ່ງ</div><div style="font-size:10px;color:#888">2 ມື້ກ່ອນ • ເອກະສານ</div></div></div>
+        </div>
+      </div>
+
+      <!-- ============ DOCUMENTS ============ -->
+      <div class="screen" id="screen-documents">
+        <div class="panel-header"><h3 style="font-size:14px">ເອກະສານ & ໄຟລ໌</h3><div class="btn-group"><button class="btn btn-primary btn-sm">⬆ Upload</button><button class="btn btn-sm">+ ສ້າງ Folder</button></div></div>
+        <div class="panel">
+          <div class="annotation">📂 ເວັບໄຊ ບໍລິສັດ ABC / ເອກະສານ</div>
+          <table>
+            <thead><tr><th>ຊື່ໄຟລ໌</th><th>ປະເພດ</th><th>ຂະໜາດ</th><th>ອັບໂຫຼດໂດຍ</th><th>ວັນທີ</th><th>Version</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>📁 Design</td><td>Folder</td><td>—</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+              <tr><td>&nbsp;&nbsp;📄 Wireframe_v2.fig</td><td>Figma</td><td>4.2 MB</td><td>ວິໄລ</td><td>14 ກ.ພ.</td><td>v2 <span style="color:#888">(v1 ມີຢູ່)</span></td><td>📥 ⋯</td></tr>
+              <tr><td>&nbsp;&nbsp;📄 Logo_final.png</td><td>PNG</td><td>1.1 MB</td><td>ສົມຈິດ</td><td>08 ກ.ພ.</td><td>v1</td><td>📥 ⋯</td></tr>
+              <tr><td>📁 ສັນຍາ</td><td>Folder</td><td>—</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+              <tr><td>&nbsp;&nbsp;📄 ສັນຍາ_ABC_signed.pdf</td><td>PDF</td><td>2.3 MB</td><td>Manager</td><td>01 ມ.ກ.</td><td>v1</td><td>📥 ⋯</td></tr>
+              <tr><td>📁 ໃບບິນ</td><td>Folder</td><td>—</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+              <tr><td>&nbsp;&nbsp;📄 INV-001.pdf</td><td>PDF</td><td>120 KB</td><td>ລະບົບ</td><td>01 ມ.ກ.</td><td>—</td><td>📥 ⋯</td></tr>
+              <tr><td>&nbsp;&nbsp;📄 INV-002.pdf</td><td>PDF</td><td>125 KB</td><td>ລະບົບ</td><td>01 ກ.ພ.</td><td>—</td><td>📥 ⋯</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ============ REPORTS ============ -->
+      <div class="screen" id="screen-reports">
+        <div class="panel-header"><h3 style="font-size:14px">ລາຍງານ</h3><button class="btn btn-sm">📥 Export PDF</button>&nbsp;<button class="btn btn-sm">📥 Export Excel</button></div>
+        <div class="tabs"><div class="tab active">ພາບລວມ</div><div class="tab">ການເງິນ</div><div class="tab">ຄວາມຄືບໜ້າ</div><div class="tab">ທີມ</div><div class="tab">ເວລາ</div></div>
+
+        <div class="grid-equal">
+          <div class="panel">
+            <div class="panel-title">ລາຍຮັບ vs ລາຍຈ່າຍ (ລາຍເດືອນ)</div>
+            <div style="font-size:12px">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>ເດືອນ</span><span>ລາຍຮັບ</span><span>ລາຍຈ່າຍ</span><span>ກຳໄລ</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>ມ.ກ.</span><span>$32,500</span><span>$22,000</span><span style="font-weight:600">+$10,500</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>ກ.ພ.</span><span>$85,000</span><span>$52,300</span><span style="font-weight:600">+$32,700</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0"><span>ມີ.ນ. (ຄາດ)</span><span>$67,500</span><span>$40,000</span><span style="font-weight:600">+$27,500</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">ຄວາມຄືບໜ້າ vs ງົບ</div>
+            <div style="font-size:12px">
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>ໂຄງການ</span><span>ຄືບໜ້າ</span><span>ງົບໃຊ້</span><span>ປະສິດທິພາບ</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>ເວັບ ABC</span><span>75%</span><span>76%</span><span>⚠ ໃກ້ກັນ</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>POS</span><span>45%</span><span>42%</span><span>✅ ດີ</span></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0"><span>App ຈັດສົ່ງ</span><span>90%</span><span>53%</span><span>✅ ດີຫຼາຍ</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ TIME TRACKING ============ -->
+      <div class="screen" id="screen-timetracking">
+        <div class="panel-header"><h3 style="font-size:14px">Time Tracking</h3><div class="btn-group"><button class="btn btn-primary btn-sm">⏱ Start Timer</button><button class="btn btn-sm">+ ປ້ອນເວລາ</button></div></div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="label">ຊົ່ວໂມງອາທິດນີ້</div><div class="value">112h</div><div class="sub">ທີມ 4 ຄົນ</div></div>
+          <div class="stat-card"><div class="label">Billable</div><div class="value">96h</div><div class="sub">86%</div></div>
+          <div class="stat-card"><div class="label">Non-Billable</div><div class="value">16h</div><div class="sub">14%</div></div>
+          <div class="stat-card"><div class="label">ມູນຄ່າ (ປະມານ)</div><div class="value">$4,800</div><div class="sub">$50/h</div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Timesheet ອາທິດນີ້ (10–14 ກ.ພ.)</div>
+          <table>
+            <thead><tr><th>ສະມາຊິກ</th><th>ຈັນ</th><th>ອັງ</th><th>ພຸດ</th><th>ພະຫັດ</th><th>ສຸກ</th><th>ລວມ</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:500">ສົມຈິດ</td><td>8h</td><td>7h</td><td>8h</td><td>6h</td><td>5h</td><td style="font-weight:600">34h</td></tr>
+              <tr><td style="font-weight:500">ວິໄລ</td><td>6h</td><td>5h</td><td>4h</td><td>5h</td><td>4h</td><td style="font-weight:600">24h</td></tr>
+              <tr><td style="font-weight:500">ບຸນມີ</td><td>8h</td><td>8h</td><td>8h</td><td>7h</td><td>7h</td><td style="font-weight:600">38h</td></tr>
+              <tr><td style="font-weight:500">ແກ້ວ</td><td>4h</td><td>3h</td><td>4h</td><td>3h</td><td>2h</td><td style="font-weight:600">16h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ============ RISKS ============ -->
+      <div class="screen" id="screen-risks">
+        <div class="panel-header"><h3 style="font-size:14px">ການບໍລິຫານຄວາມສ່ຽງ</h3><button class="btn btn-primary" onclick="showModal('modal-add-risk')">+ ບັນທຶກຄວາມສ່ຽງ</button></div>
+        <div class="stat-cards">
+          <div class="stat-card"><div class="label">ຄວາມສ່ຽງທັງໝົດ</div><div class="value">8</div></div>
+          <div class="stat-card"><div class="label">■ ວິກິດ</div><div class="value">1</div></div>
+          <div class="stat-card"><div class="label">■ ສູງ</div><div class="value">3</div></div>
+          <div class="stat-card"><div class="label">□ ຕໍ່າ-ກາງ</div><div class="value">4</div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-title">ລາຍການຄວາມສ່ຽງ</div>
+            <table>
+              <thead><tr><th>ຄວາມສ່ຽງ</th><th>ໂຄງການ</th><th>ລະດັບ</th><th>ຜູ້ຮັບຜິດຊອບ</th><th>ສະຖານະ</th></tr></thead>
+              <tbody>
+                <tr style="background:#f0f0f0"><td style="font-weight:500">ລູກຄ້າ ABC ອາດປ່ຽນ Requirement</td><td>ເວັບ ABC</td><td><span class="tag tag-dark">■ ວິກິດ</span></td><td>ສົມຈິດ</td><td>ກຳລັງຕິດຕາມ</td></tr>
+                <tr><td>Dev ຫຼັກລາພັກ 2 ອາທິດ</td><td>App ຈັດສົ່ງ</td><td><span class="tag tag-dark">■ ສູງ</span></td><td>ວິໄລ</td><td>ລະບຸແລ້ວ</td></tr>
+                <tr><td>ງົບ Server ເກີນ</td><td>POS</td><td><span class="tag">□ ກາງ</span></td><td>ບຸນມີ</td><td>ກຳລັງຕິດຕາມ</td></tr>
+                <tr><td>ລູກຄ້າຈ່າຍຊ້າ</td><td>App ຈັດສົ່ງ</td><td><span class="tag tag-dark">■ ສູງ</span></td><td>Manager</td><td>ລະບຸແລ້ວ</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="panel">
+              <div class="panel-title">Risk Matrix</div>
+              <div class="risk-matrix">
+                <div class="risk-label"></div><div class="risk-label">ນ້ອຍ</div><div class="risk-label">ປານກາງ</div><div class="risk-label">ຮ້າຍແຮງ</div>
+                <div class="risk-label">ສູງ</div><div class="risk-cell risk-med">□</div><div class="risk-cell risk-high">■ 1</div><div class="risk-cell risk-crit">■ 1</div>
+                <div class="risk-label">ກາງ</div><div class="risk-cell risk-low">□</div><div class="risk-cell risk-med">□ 2</div><div class="risk-cell risk-high">■ 2</div>
+                <div class="risk-label">ຕໍ່າ</div><div class="risk-cell risk-low">□ 1</div><div class="risk-cell risk-low">□ 1</div><div class="risk-cell risk-med">□</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">Flow ສະຖານະ</div>
+              <div class="flow">
+                <div class="flow-step">ລະບຸແລ້ວ</div><div class="flow-arrow">→</div>
+                <div class="flow-step active">ຕິດຕາມ</div><div class="flow-arrow">→</div>
+                <div class="flow-step">ເກີດຂຶ້ນ</div><div class="flow-arrow">→</div>
+                <div class="flow-step">ແກ້ໄຂ</div><div class="flow-arrow">→</div>
+                <div class="flow-step">ປິດ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SUBSCRIPTION ============ -->
+      <div class="screen" id="screen-subscription">
+        <div class="panel-header"><h3 style="font-size:14px">Subscription & ແພັກເກດ</h3></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px">
+          <div class="panel" style="text-align:center"><div style="font-size:16px;font-weight:700;margin-bottom:8px">Free</div><div style="font-size:24px;font-weight:700">$0</div><div style="font-size:11px;color:#888">/ເດືອນ</div><hr class="divider"><div style="font-size:11px;text-align:left;line-height:2">1 ໂຄງການ<br>5 ສະມາຊິກ<br>1 GB Storage<br>Dashboard ພື້ນຖານ</div><button class="btn btn-sm" style="margin-top:10px;width:100%">ເລືອກ</button></div>
+          <div class="panel" style="text-align:center"><div style="font-size:16px;font-weight:700;margin-bottom:8px">Basic</div><div style="font-size:24px;font-weight:700">$29</div><div style="font-size:11px;color:#888">/ເດືອນ</div><hr class="divider"><div style="font-size:11px;text-align:left;line-height:2">10 ໂຄງການ<br>20 ສະມາຊິກ<br>10 GB Storage<br>ລາຍງານ + Time Tracking</div><button class="btn btn-sm" style="margin-top:10px;width:100%">ເລືອກ</button></div>
+          <div class="panel" style="text-align:center;border:2px solid #222"><div style="font-size:10px;background:#222;color:#fff;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:6px">ແນະນຳ</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">Pro</div><div style="font-size:24px;font-weight:700">$79</div><div style="font-size:11px;color:#888">/ເດືອນ</div><hr class="divider"><div style="font-size:11px;text-align:left;line-height:2">ບໍ່ຈຳກັດໂຄງການ<br>50 ສະມາຊິກ<br>50 GB Storage<br>ງົບ + ງວດ + ຄວາມສ່ຽງ<br>ລາຍງານຂັ້ນສູງ</div><button class="btn btn-sm btn-primary" style="margin-top:10px;width:100%">✅ ແພັກເກດປະຈຸບັນ</button></div>
+          <div class="panel" style="text-align:center"><div style="font-size:16px;font-weight:700;margin-bottom:8px">Enterprise</div><div style="font-size:24px;font-weight:700">Custom</div><div style="font-size:11px;color:#888">ຕິດຕໍ່ເຮົາ</div><hr class="divider"><div style="font-size:11px;text-align:left;line-height:2">ບໍ່ຈຳກັດທັງໝົດ<br>Custom Branding<br>Custom Domain<br>Priority Support<br>SLA Guarantee</div><button class="btn btn-sm" style="margin-top:10px;width:100%">ຕິດຕໍ່</button></div>
+        </div>
+      </div>
+
+      <!-- ============ SETTINGS ============ -->
+      <div class="screen" id="screen-settings">
+        <div class="tabs"><div class="tab active">ທົ່ວໄປ</div><div class="tab">ໂຄງການ</div><div class="tab">ແຈ້ງເຕືອນ</div><div class="tab">ການເງິນ</div><div class="tab">Multi-Tenant</div></div>
+        <div class="panel">
+          <div class="panel-title">ຂໍ້ມູນບໍລິສັດ (Tenant)</div>
+          <div class="form-row"><div class="form-group"><label>ຊື່ບໍລິສັດ</label><input value="ບໍລິສັດ ABC IT Solutions" /></div><div class="form-group"><label>Email</label><input value="admin@abc-it.com" /></div></div>
+          <div class="form-row"><div class="form-group"><label>ໂລໂກ້</label><input type="file" /></div><div class="form-group"><label>Custom Domain</label><input value="pm.abc-it.com" placeholder="ສຳລັບ Enterprise" /></div></div>
+          <div class="form-row"><div class="form-group"><label>ພາສາ</label><select><option>ລາວ</option><option>English</option><option>ไทย</option></select></div><div class="form-group"><label>ສະກຸນເງິນຫຼັກ</label><select><option>USD ($)</option><option>LAK (₭)</option><option>THB (฿)</option></select></div></div>
+          <button class="btn btn-primary" style="margin-top:10px">💾 ບັນທຶກ</button>
+        </div>
+        <div class="panel">
+          <div class="panel-title">ຕັ້ງຄ່າການແຈ້ງເຕືອນ</div>
+          <div style="font-size:12px;line-height:2.5">
+            <label><input type="checkbox" checked /> Email ເມື່ອ Task ຖືກມອບໝາຍ</label><br>
+            <label><input type="checkbox" checked /> Email ເມື່ອ Deadline ໃກ້ (3 ມື້ກ່ອນ)</label><br>
+            <label><input type="checkbox" checked /> Email ເມື່ອງວດເງິນໃກ້ຮອດ (7 ມື້ກ່ອນ)</label><br>
+            <label><input type="checkbox" checked /> Email ເມື່ອງົບເກີນ 80%</label><br>
+            <label><input type="checkbox" /> Push Notification (ມືຖື)</label><br>
+            <label><input type="checkbox" checked /> ລາຍງານສະຫຼຸບປະຈຳອາທິດ</label>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">ຕັ້ງຄ່າການອະນຸມັດລາຍຈ່າຍ</div>
+          <div style="font-size:12px;line-height:2.5">
+            <div class="form-row"><div class="form-group"><label>ອະນຸມັດອັດຕະໂນມັດ ≤</label><input value="500" style="width:100px" /> $</div></div>
+            <div class="form-row"><div class="form-group"><label>Manager ອະນຸມັດ ≤</label><input value="5000" style="width:100px" /> $</div></div>
+            <div class="form-row"><div class="form-group"><label>Director/Admin ອະນຸມັດ ≤</label><input value="999999" style="width:100px" /> $ (ບໍ່ຈຳກັດ)</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SECURITY ============ -->
+      <div class="screen" id="screen-security">
+        <div class="panel">
+          <div class="panel-title">ຄວາມປອດໄພ</div>
+          <div style="font-size:12px;line-height:2.5">
+            <label><input type="checkbox" checked /> ບັງຄັບ 2FA (Two-Factor Authentication) ທຸກຄົນ</label><br>
+            <label><input type="checkbox" checked /> Session Timeout: <input value="30" style="width:50px;padding:3px 6px;border:1px solid #ccc;border-radius:4px" /> ນາທີ</label><br>
+            <label><input type="checkbox" checked /> Encryption ຂໍ້ມູນ (at rest + in transit)</label><br>
+            <label><input type="checkbox" checked /> Backup ອັດຕະໂນມັດ ທຸກມື້</label><br>
+            <label><input type="checkbox" checked /> ບັນທຶກ Audit Log</label>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Audit Log (ລ່າສຸດ)</div>
+          <table>
+            <thead><tr><th>ເວລາ</th><th>ຜູ້ໃຊ້</th><th>ກິດຈະກຳ</th><th>IP</th></tr></thead>
+            <tbody>
+              <tr><td>14 ກ.ພ. 10:30</td><td>Admin</td><td>Login ສຳເລັດ</td><td>192.168.1.1</td></tr>
+              <tr><td>14 ກ.ພ. 10:15</td><td>ບຸນມີ</td><td>ບັນທຶກລາຍຈ່າຍ $2,500</td><td>192.168.1.5</td></tr>
+              <tr><td>14 ກ.ພ. 09:45</td><td>ວິໄລ</td><td>ອັບໂຫຼດໄຟລ໌ Wireframe_v2.fig</td><td>192.168.1.3</td></tr>
+              <tr><td>13 ກ.ພ. 17:00</td><td>Manager</td><td>ອະນຸມັດລາຍຈ່າຍ $450</td><td>192.168.1.2</td></tr>
+              <tr><td>13 ກ.ພ. 14:20</td><td>ສົມຈິດ</td><td>ສ້າງ Task "ອອກແບບ DB"</td><td>192.168.1.4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- end content -->
+  </div><!-- end main -->
+</div><!-- end app -->
+
+<!-- ============ MODALS ============ -->
+
+<!-- Create Project -->
+<div class="modal-overlay" id="modal-create-project" style="display:none" onclick="closeModalOutside(event,'modal-create-project')">
+  <div class="modal" style="width:720px">
+    <div class="modal-title">ສ້າງໂຄງການໃໝ່ <span class="modal-close" onclick="closeModal('modal-create-project')">✕</span></div>
+
+    <!-- Wizard Steps Indicator -->
+    <div style="display:flex;align-items:center;margin-bottom:24px;padding:0 10px">
+      <div class="wz-step-item" id="wz-ind-1" style="flex:1;text-align:center">
+        <div class="wz-dot wz-dot-active" id="wz-dot-1" style="width:32px;height:32px;border-radius:50%;border:2px solid #222;background:#222;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">1</div>
+        <div style="font-size:10px;margin-top:4px;color:#222;font-weight:600">ຂໍ້ມູນໂຄງການ</div>
+      </div>
+      <div style="flex:0.5;height:2px;background:#ddd" id="wz-line-1"></div>
+      <div class="wz-step-item" id="wz-ind-2" style="flex:1;text-align:center">
+        <div class="wz-dot" id="wz-dot-2" style="width:32px;height:32px;border-radius:50%;border:2px solid #ccc;background:#fff;color:#999;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">2</div>
+        <div style="font-size:10px;margin-top:4px;color:#999">ງົບປະມານ</div>
+      </div>
+      <div style="flex:0.5;height:2px;background:#ddd" id="wz-line-2"></div>
+      <div class="wz-step-item" id="wz-ind-3" style="flex:1;text-align:center">
+        <div class="wz-dot" id="wz-dot-3" style="width:32px;height:32px;border-radius:50%;border:2px solid #ccc;background:#fff;color:#999;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">3</div>
+        <div style="font-size:10px;margin-top:4px;color:#999">ງວດເງິນ</div>
+      </div>
+      <div style="flex:0.5;height:2px;background:#ddd" id="wz-line-3"></div>
+      <div class="wz-step-item" id="wz-ind-4" style="flex:1;text-align:center">
+        <div class="wz-dot" id="wz-dot-4" style="width:32px;height:32px;border-radius:50%;border:2px solid #ccc;background:#fff;color:#999;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">4</div>
+        <div style="font-size:10px;margin-top:4px;color:#999">ຢືນຢັນ</div>
+      </div>
+    </div>
+
+    <!-- Step 1: ຂໍ້ມູນໂຄງການ -->
+    <div class="wz-step" id="wz-step-1">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #eee">Step 1: ຂໍ້ມູນໂຄງການ</div>
+      <div class="form-row"><div class="form-group"><label>ຊື່ໂຄງການ *</label><input id="wz-name" placeholder="ເຊັ່ນ: ສ້າງເວັບໄຊ ບໍລິສັດ ABC" value="ສ້າງເວັບໄຊ ບໍລິສັດ ABC" /></div></div>
+      <div class="form-row"><div class="form-group"><label>ລູກຄ້າ *</label><input id="wz-client" placeholder="ຊື່ບໍລິສັດລູກຄ້າ" value="ບໍລິສັດ ABC" /></div><div class="form-group"><label>ມູນຄ່າໂຄງການ *</label><input id="wz-value" placeholder="$50,000" value="$50,000" /></div></div>
+      <div class="form-row"><div class="form-group"><label>ວັນເລີ່ມ *</label><input type="date" value="2026-01-01" /></div><div class="form-group"><label>ວັນສິ້ນສຸດ *</label><input type="date" value="2026-03-30" /></div></div>
+      <div class="form-row"><div class="form-group"><label>ທີມງານ</label><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><label style="font-size:11px;background:#f0f0f0;padding:4px 10px;border-radius:20px;cursor:pointer;border:1px solid #ccc"><input type="checkbox" checked style="margin-right:4px" />ສົມຈິດ</label><label style="font-size:11px;background:#f0f0f0;padding:4px 10px;border-radius:20px;cursor:pointer;border:1px solid #ccc"><input type="checkbox" checked style="margin-right:4px" />ວິໄລ</label><label style="font-size:11px;background:#f0f0f0;padding:4px 10px;border-radius:20px;cursor:pointer;border:1px solid #ccc"><input type="checkbox" checked style="margin-right:4px" />ບຸນມີ</label><label style="font-size:11px;background:#f0f0f0;padding:4px 10px;border-radius:20px;cursor:pointer;border:1px solid #ccc"><input type="checkbox" style="margin-right:4px" />ແກ້ວ</label></div></div></div>
+      <div class="form-row"><div class="form-group"><label>ລາຍລະອຽດ</label><textarea placeholder="ອະທິບາຍໂຄງການ...">ສ້າງເວັບໄຊ ບໍລິສັດ ABC ພ້ອມລະບົບ CMS</textarea></div></div>
+    </div>
+
+    <!-- Step 2: ງົບປະມານ -->
+    <div class="wz-step" id="wz-step-2" style="display:none">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #eee">Step 2: ງົບປະມານ</div>
+      <div class="annotation">💡 ງົບທີ່ກຳນົດຢູ່ນີ້ ຈະ link ໄປໜ້າ "ງົບປະມານ" ອັດຕະໂນມັດ ແລະ ສາມາດແກ້ໄຂໄດ້ພາຍຫຼັງ</div>
+      <div class="form-row"><div class="form-group"><label>ງົບປະມານລວມ * (ບັງຄັບ)</label><input id="wz-budget" value="$50,000" style="font-weight:700;font-size:16px" /></div></div>
+
+      <!-- Toggle for categories -->
+      <div style="margin:16px 0 12px;padding:12px 16px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;font-weight:600">
+          <input type="checkbox" id="wz-show-categories" onchange="document.getElementById('wz-categories').style.display=this.checked?'block':'none'" checked />
+          ແບ່ງໝວດໝູ່ງົບ (optional — ສາມາດແບ່ງທີຫຼັງໄດ້)
+        </label>
+        <div style="font-size:11px;color:#888;margin-top:6px;padding-left:24px">
+          ແບ່ງງົບເປັນກ້ອນຍ່ອຍ ເພື່ອຕິດຕາມວ່າເງິນໄຫຼໄປທາງໃດ. ເມື່ອບັນທຶກລາຍຈ່າຍ ລະບົບຈະຈັບຄູ່ກັບໝວດໝູ່ອັດຕະໂນມັດ ແລະ ແຈ້ງເຕືອນເມື່ອໝວດໃດໃກ້ໝົດ.
+        </div>
+      </div>
+
+      <div id="wz-categories">
+        <div style="background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:14px">
+          <!-- Visual explanation -->
+          <div style="font-size:11px;color:#666;margin-bottom:12px;padding:8px 12px;background:#fff;border:1px dashed #ccc;border-radius:6px">
+            📐 <b>ຕົວຢ່າງ:</b> ຖ້າຈ່າຍ $2,500 ຄ່າ AWS Server → ລະບົບຕັດຈາກ "ຄ່າວັດສະດຸ" → ເຫັນວ່າ $2,500/$15,000 ໃຊ້ແລ້ວ
+          </div>
+
+          <table style="width:100%;font-size:12px;border-collapse:collapse">
+            <thead>
+              <tr style="border-bottom:2px solid #ddd">
+                <th style="text-align:left;padding:6px 8px;color:#666">ໝວດໝູ່</th>
+                <th style="text-align:left;padding:6px 8px;color:#666">ລາຍລະອຽດ</th>
+                <th style="text-align:right;padding:6px 8px;color:#666;width:120px">ຈຳນວນ ($)</th>
+                <th style="text-align:center;padding:6px 8px;color:#666;width:50px">%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #eee">
+                <td style="padding:8px">👨‍💻 <b>ຄ່າແຮງງານ</b></td>
+                <td style="padding:8px;font-size:11px;color:#888">ເງິນເດືອນ, ຈ້າງ freelancer, ຄ່າລ່ວງເວລາ</td>
+                <td style="padding:8px;text-align:right"><input value="25,000" style="width:100px;padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+                <td style="padding:8px;text-align:center;color:#888">50%</td>
+              </tr>
+              <tr style="border-bottom:1px solid #eee">
+                <td style="padding:8px">🖥️ <b>ຄ່າວັດສະດຸ/ອຸປະກອນ</b></td>
+                <td style="padding:8px;font-size:11px;color:#888">server, hosting, license, domain, software</td>
+                <td style="padding:8px;text-align:right"><input value="15,000" style="width:100px;padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+                <td style="padding:8px;text-align:center;color:#888">30%</td>
+              </tr>
+              <tr style="border-bottom:1px solid #eee">
+                <td style="padding:8px">🚗 <b>ຄ່າເດີນທາງ</b></td>
+                <td style="padding:8px;font-size:11px;color:#888">ໄປປະຊຸມລູກຄ້າ, ຄ່ານ້ຳມັນ, ທີ່ພັກ</td>
+                <td style="padding:8px;text-align:right"><input value="2,000" style="width:100px;padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+                <td style="padding:8px;text-align:center;color:#888">4%</td>
+              </tr>
+              <tr>
+                <td style="padding:8px">📦 <b>ສຳຮອງ/ອື່ນໆ</b></td>
+                <td style="padding:8px;font-size:11px;color:#888">ກັນໄວ້ສຳລັບບັນຫາທີ່ບໍ່ຄາດຄິດ (ແນະນຳ 10-20%)</td>
+                <td style="padding:8px;text-align:right"><input value="8,000" style="width:100px;padding:4px 8px;font-size:12px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+                <td style="padding:8px;text-align:center;color:#888">16%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:10px;padding:8px 8px 0;border-top:2px solid #ccc">
+            <span style="font-weight:600">ລວມ:</span>
+            <span style="font-weight:700">$50,000 / $50,000 (100%) ✅</span>
+          </div>
+          <div style="margin-top:8px;text-align:right"><button class="btn btn-sm" style="font-size:10px">+ ເພີ່ມໝວດໝູ່ເອງ</button></div>
+        </div>
+      </div>
+
+      <div style="font-size:12px;font-weight:600;margin:16px 0 8px">ຕັ້ງ Threshold ແຈ້ງເຕືອນ:</div>
+      <div style="background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:#666;margin-bottom:10px">ລະບົບແຈ້ງເຕືອນເມື່ອງົບໝວດໃດ ຫຼື ງົບລວມ ໃຊ້ເກີນ % ທີ່ກຳນົດ:</div>
+        <div class="form-row">
+          <div class="form-group"><label>⚠ ລະວັງ</label><div style="display:flex;align-items:center;gap:6px"><input value="70" style="width:60px" /><span style="font-size:11px;color:#888">%</span></div></div>
+          <div class="form-group"><label>🔶 ອັນຕະລາຍ</label><div style="display:flex;align-items:center;gap:6px"><input value="85" style="width:60px" /><span style="font-size:11px;color:#888">%</span></div></div>
+          <div class="form-group"><label>🔴 ເກີນງົບ</label><div style="display:flex;align-items:center;gap:6px"><input value="100" style="width:60px" /><span style="font-size:11px;color:#888">%</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: ງວດເງິນ -->
+    <div class="wz-step" id="wz-step-3" style="display:none">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #eee">Step 3: ງວດເງິນ</div>
+      <div class="annotation">💡 ງວດເງິນຈະ link ໄປໜ້າ "ງວດເງິນ" ແລະ "Invoice" ອັດຕະໂນມັດ. ສາມາດຜູກກັບ Milestone ໄດ້</div>
+      <div class="form-row">
+        <div class="form-group"><label>ມູນຄ່າໂຄງການ</label><input value="$50,000" disabled style="background:#f0f0f0" /></div>
+        <div class="form-group"><label>ຈຳນວນງວດ *</label><select id="wz-installment-count" onchange="updateWizardInstallments()"><option>2 ງວດ</option><option>3 ງວດ</option><option selected>4 ງວດ</option><option>6 ງວດ</option></select></div>
+        <div class="form-group"><label>ປະເພດ</label><select><option selected>ກຳນົດເອງ</option><option>ແບ່ງເທົ່າກັນ</option><option>ຕາມ Milestone</option></select></div>
+      </div>
+
+      <table style="font-size:12px;margin-top:10px" id="wz-installment-table">
+        <thead><tr><th style="width:40px">ງວດ</th><th>ເງື່ອນໄຂ</th><th>ຜູກ Milestone</th><th style="width:100px">ຈຳນວນ ($)</th><th style="width:50px">%</th><th>ກຳນົດຈ່າຍ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center;font-weight:600">1</td>
+            <td><input value="ເຊັນສັນຍາ" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td>
+            <td><select style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px;font-family:inherit"><option>— ບໍ່ຜູກ —</option><option>Milestone 1</option></select></td>
+            <td><input value="12,500" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+            <td style="text-align:center;color:#888">25%</td>
+            <td><input type="date" value="2026-01-01" style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px" /></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;font-weight:600">2</td>
+            <td><input value="ສົ່ງມອບ Phase 1" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td>
+            <td><select style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px;font-family:inherit"><option>— ບໍ່ຜູກ —</option><option selected>Milestone 2</option></select></td>
+            <td><input value="15,000" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+            <td style="text-align:center;color:#888">30%</td>
+            <td><input type="date" value="2026-02-15" style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px" /></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;font-weight:600">3</td>
+            <td><input value="ສົ່ງມອບ Phase 2" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td>
+            <td><select style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px;font-family:inherit"><option>— ບໍ່ຜູກ —</option><option selected>Milestone 3</option></select></td>
+            <td><input value="12,500" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+            <td style="text-align:center;color:#888">25%</td>
+            <td><input type="date" value="2026-03-15" style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px" /></td>
+          </tr>
+          <tr>
+            <td style="text-align:center;font-weight:600">4</td>
+            <td><input value="ປິດໂຄງການ" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td>
+            <td><select style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px;font-family:inherit"><option>— ບໍ່ຜູກ —</option><option selected>Milestone 4</option></select></td>
+            <td><input value="10,000" style="width:100%;padding:4px 8px;font-size:11px;border:1px solid #ccc;border-radius:4px;text-align:right" /></td>
+            <td style="text-align:center;color:#888">20%</td>
+            <td><input type="date" value="2026-03-30" style="width:100%;font-size:11px;padding:4px;border:1px solid #ccc;border-radius:4px" /></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:8px;padding:8px 12px;background:#f9f9f9;border-radius:6px"><span>ລວມ:</span><span style="font-weight:700">$50,000 / $50,000 (100%) ✅</span></div>
+    </div>
+
+    <!-- Step 4: ຢືນຢັນ -->
+    <div class="wz-step" id="wz-step-4" style="display:none">
+      <div style="font-size:14px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #eee">Step 4: ກວດສອບ & ຢືນຢັນ</div>
+      <div class="annotation">📐 ກວດສອບຂໍ້ມູນທັງໝົດກ່ອນກົດສ້າງ. ລະບົບຈະສ້າງ ໂຄງການ + ງົບ + ງວດ + Milestones ພ້ອมກັນ</div>
+
+      <!-- Summary: Project Info -->
+      <div style="background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;margin-bottom:10px;display:flex;justify-content:space-between">📁 ຂໍ້ມູນໂຄງການ <span style="font-size:10px;color:#888;cursor:pointer;text-decoration:underline" onclick="wizardGo(1)">✏ ແກ້ໄຂ</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+          <div>ຊື່: <b>ສ້າງເວັບໄຊ ບໍລິສັດ ABC</b></div>
+          <div>ລູກຄ້າ: <b>ບໍລິສັດ ABC</b></div>
+          <div>ມູນຄ່າ: <b>$50,000</b></div>
+          <div>ໄລຍະ: <b>01 ມ.ກ. — 30 ມີ.ນ. 2026</b></div>
+          <div>ທີມ: <b>ສົມຈິດ, ວິໄລ, ບຸນມີ</b> (3 ຄົນ)</div>
+        </div>
+      </div>
+
+      <!-- Summary: Budget -->
+      <div style="background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;margin-bottom:10px;display:flex;justify-content:space-between">💰 ງົບປະມານ <span style="font-size:10px;color:#888;cursor:pointer;text-decoration:underline" onclick="wizardGo(2)">✏ ແກ້ໄຂ</span></div>
+        <div style="font-size:12px;margin-bottom:8px">ງົບລວມ: <b>$50,000</b></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px;color:#555">
+          <div>👨‍💻 ຄ່າແຮງງານ: <b>$25,000</b> (50%)</div>
+          <div>🖥️ ຄ່າວັດສະດຸ: <b>$15,000</b> (30%)</div>
+          <div>🚗 ຄ່າເດີນທາງ: <b>$2,000</b> (4%)</div>
+          <div>📦 ສຳຮອງ: <b>$8,000</b> (16%)</div>
+        </div>
+        <div style="font-size:11px;color:#888;margin-top:6px">ແຈ້ງເຕືອນ: ⚠ 70% | 🔶 85% | 🔴 100%</div>
+      </div>
+
+      <!-- Summary: Installments -->
+      <div style="background:#f9f9f9;border:1px solid #eee;border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;margin-bottom:10px;display:flex;justify-content:space-between">💳 ງວດເງິນ (4 ງວດ) <span style="font-size:10px;color:#888;cursor:pointer;text-decoration:underline" onclick="wizardGo(3)">✏ ແກ້ໄຂ</span></div>
+        <table style="font-size:11px;width:100%">
+          <tr style="background:#eee"><td style="padding:4px 8px;font-weight:600">ງວດ</td><td style="padding:4px 8px">ເງື່ອນໄຂ</td><td style="padding:4px 8px">Milestone</td><td style="padding:4px 8px;text-align:right">ຈຳນວນ</td><td style="padding:4px 8px">ກຳນົດ</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:600">1</td><td style="padding:4px 8px">ເຊັນສັນຍາ</td><td style="padding:4px 8px;color:#888">—</td><td style="padding:4px 8px;text-align:right;font-weight:600">$12,500</td><td style="padding:4px 8px">01 ມ.ກ.</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:600">2</td><td style="padding:4px 8px">ສົ່ງມອບ Phase 1</td><td style="padding:4px 8px;color:#888">Milestone 2</td><td style="padding:4px 8px;text-align:right;font-weight:600">$15,000</td><td style="padding:4px 8px">15 ກ.ພ.</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:600">3</td><td style="padding:4px 8px">ສົ່ງມອບ Phase 2</td><td style="padding:4px 8px;color:#888">Milestone 3</td><td style="padding:4px 8px;text-align:right;font-weight:600">$12,500</td><td style="padding:4px 8px">15 ມີ.ນ.</td></tr>
+          <tr><td style="padding:4px 8px;font-weight:600">4</td><td style="padding:4px 8px">ປິດໂຄງການ</td><td style="padding:4px 8px;color:#888">Milestone 4</td><td style="padding:4px 8px;text-align:right;font-weight:600">$10,000</td><td style="padding:4px 8px">30 ມີ.ນ.</td></tr>
+          <tr style="border-top:2px solid #ccc"><td colspan="3" style="padding:6px 8px;font-weight:600">ລວມ</td><td style="padding:6px 8px;text-align:right;font-weight:700">$50,000</td><td style="padding:6px 8px">✅</td></tr>
+        </table>
+      </div>
+
+      <!-- Link Map -->
+      <div style="background:#fff;border:2px dashed #aaa;border-radius:8px;padding:16px;text-align:center;font-size:12px">
+        <div style="font-weight:600;margin-bottom:10px">🔗 ລະບົບຈະສ້າງ & Link ຂໍ້ມູນໄປ:</div>
+        <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap">
+          <span style="background:#222;color:#fff;padding:4px 12px;border-radius:20px;font-size:11px">📁 ໂຄງການ</span>
+          <span style="font-size:16px">→</span>
+          <span style="background:#222;color:#fff;padding:4px 12px;border-radius:20px;font-size:11px">💰 ງົບປະມານ</span>
+          <span style="font-size:16px">→</span>
+          <span style="background:#222;color:#fff;padding:4px 12px;border-radius:20px;font-size:11px">💳 ງວດເງິນ</span>
+          <span style="font-size:16px">→</span>
+          <span style="background:#222;color:#fff;padding:4px 12px;border-radius:20px;font-size:11px">🏁 Milestones</span>
+          <span style="font-size:16px">→</span>
+          <span style="background:#222;color:#fff;padding:4px 12px;border-radius:20px;font-size:11px">👥 ທີມ</span>
+        </div>
+        <div style="font-size:10px;color:#888;margin-top:8px">ທຸກໜ້າຈະອັບເດດອັດຕະໂນມັດ ສາມາດແກ້ໄຂໄດ້ທຸກເວລາ</div>
+      </div>
+    </div>
+
+    <!-- Wizard Navigation Buttons -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:14px;border-top:1px solid #eee">
+      <button class="btn" onclick="closeModal('modal-create-project')">ຍົກເລີກ</button>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn" id="wz-btn-back" onclick="wizardBack()" style="display:none">← ກັບຄືນ</button>
+        <button class="btn" id="wz-btn-skip" onclick="wizardNext()" style="display:none;color:#888">ຂ້າມ →</button>
+        <button class="btn btn-primary" id="wz-btn-next" onclick="wizardNext()">ຕໍ່ໄປ →</button>
+        <button class="btn btn-primary" id="wz-btn-create" onclick="wizardCreate()" style="display:none">✅ ສ້າງໂຄງການ</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Project Detail -->
+<div class="modal-overlay" id="modal-project-detail" style="display:none" onclick="closeModalOutside(event,'modal-project-detail')">
+  <div class="modal" style="width:700px">
+    <div class="modal-title">📁 ລະບົບ CRM ໃໝ່ <span class="modal-close" onclick="closeModal('modal-project-detail')">✕</span></div>
+    <div style="display:flex;gap:20px;font-size:12px;margin-bottom:16px;flex-wrap:wrap">
+      <span>ລູກຄ້າ: <b>ບໍລິສັດ DEF</b></span>
+      <span>ງົບ: <b>$30,000</b></span>
+      <span>ທີມ: <b>3 ຄົນ</b></span>
+      <span>ສະຖານະ: <span class="tag">ວາງແຜນ</span></span>
+    </div>
+    <div class="tabs"><div class="tab active">Tasks (0/12)</div><div class="tab">Milestones</div><div class="tab">ງວດເງິນ (3)</div><div class="tab">ງົບ</div><div class="tab">ເອກະສານ</div><div class="tab">ຄວາມສ່ຽງ</div><div class="tab">ກິດຈະກຳ</div></div>
+    <div style="padding:20px 0;text-align:center;color:#999;font-size:12px">[ເນື້ອໃນ Tab ຈະສະແດງຢູ່ນີ້]</div>
+  </div>
+</div>
+
+<!-- Create Task -->
+<div class="modal-overlay" id="modal-create-task" style="display:none" onclick="closeModalOutside(event,'modal-create-task')">
+  <div class="modal">
+    <div class="modal-title">ສ້າງ Task ໃໝ່ <span class="modal-close" onclick="closeModal('modal-create-task')">✕</span></div>
+    <div class="form-row"><div class="form-group"><label>ຊື່ Task *</label><input placeholder="ເຊັ່ນ: ອອກແບບ Database Schema" /></div></div>
+    <div class="form-row"><div class="form-group"><label>ໂຄງການ</label><select><option>ເວັບໄຊ ABC</option><option>POS ຮ້ານອາຫານ</option><option>App ຈັດສົ່ງ</option></select></div><div class="form-group"><label>Milestone</label><select><option>ບໍ່ກຳນົດ</option><option>Milestone 3: Backend</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>ມອບໝາຍໃຫ້</label><select><option>ສົມຈິດ</option><option>ວິໄລ</option><option>ບຸນມີ</option><option>ແກ້ວ</option></select></div><div class="form-group"><label>Priority</label><select><option>ສູງ</option><option selected>ກາງ</option><option>ຕໍ່າ</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>Deadline</label><input type="date" /></div><div class="form-group"><label>ເວລາຄາດ (ຊົ່ວໂມງ)</label><input type="number" placeholder="8" /></div></div>
+    <div class="form-row"><div class="form-group"><label>Dependency (ຕ້ອງລໍ)</label><select><option>ບໍ່ມີ</option><option>ອອກແບບ Database Schema</option><option>ອອກແບບ Homepage UI</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>ລາຍລະອຽດ</label><textarea placeholder="ອະທິບາຍ task..."></textarea></div></div>
+    <div class="form-row"><div class="form-group"><label>ແນບໄຟລ໌</label><input type="file" /></div></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+      <button class="btn" onclick="closeModal('modal-create-task')">ຍົກເລີກ</button>
+      <button class="btn btn-primary">✅ ສ້າງ Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Task Detail -->
+<div class="modal-overlay" id="modal-task-detail" style="display:none" onclick="closeModalOutside(event,'modal-task-detail')">
+  <div class="modal" style="width:700px">
+    <div class="modal-title">☑ ອອກແບບ Database Schema <span class="modal-close" onclick="closeModal('modal-task-detail')">✕</span></div>
+    <div style="display:flex;gap:12px;font-size:12px;margin-bottom:14px;flex-wrap:wrap">
+      <span class="tag tag-dark">ສູງ</span>
+      <span>📁 ເວັບໄຊ ABC</span>
+      <span>👤 ສົມຈິດ</span>
+      <span>📅 22 ກ.ພ. 2026</span>
+      <span>⏱ 0/8h</span>
+    </div>
+    <div class="flow" style="margin-bottom:14px">
+      <div class="flow-step active">To Do</div><div class="flow-arrow">→</div>
+      <div class="flow-step">In Progress</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Review</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Done</div>
+    </div>
+    <div style="font-size:12px;margin-bottom:14px;padding:10px;background:#f5f5f5;border-radius:6px">
+      <b>ລາຍລະອຽດ:</b> ອອກແບບ Database Schema ສຳລັບລະບົບ User, Product, Order. ໃຊ້ PostgreSQL.<br>
+      <b>Subtasks:</b><br>
+      &nbsp;&nbsp;☐ ອອກແບບ ERD<br>
+      &nbsp;&nbsp;☐ ສ້າງ Migration Files<br>
+      &nbsp;&nbsp;☐ Review ກັບທີມ<br>
+      <b>Dependency:</b> ⛓ ບໍ່ມີ<br>
+      <b>ໄຟລ໌:</b> 📎 requirements.pdf
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:12px">
+      <div style="font-weight:600;font-size:12px;margin-bottom:8px">💬 Comments</div>
+      <div style="font-size:12px;padding:8px;background:#f9f9f9;border-radius:6px;margin-bottom:8px"><b>ວິໄລ</b> <span style="color:#888">— 2 ຊົ່ວໂມງກ່ອນ</span><br>ຂໍໃຫ້ເພີ່ມ table Audit Log ນຳ @ສົມຈິດ</div>
+      <div style="display:flex;gap:8px"><input placeholder="ຂຽນ comment..." style="flex:1;padding:8px;border:1px solid #ccc;border-radius:6px;font-size:12px;font-family:inherit" /><button class="btn btn-primary btn-sm">ສົ່ງ</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Expense -->
+<div class="modal-overlay" id="modal-add-expense" style="display:none" onclick="closeModalOutside(event,'modal-add-expense')">
+  <div class="modal">
+    <div class="modal-title">ບັນທຶກລາຍຈ່າຍ <span class="modal-close" onclick="closeModal('modal-add-expense')">✕</span></div>
+    <div class="form-row"><div class="form-group"><label>ລາຍລະອຽດ *</label><input placeholder="ເຊັ່ນ: ຄ່າ Cloud Server" /></div></div>
+    <div class="form-row"><div class="form-group"><label>ຈຳນວນເງິນ *</label><input placeholder="$2,500" /></div><div class="form-group"><label>ສະກຸນເງິນ</label><select><option>USD ($)</option><option>LAK (₭)</option><option>THB (฿)</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>ໂຄງການ *</label><select><option>ເວັບໄຊ ABC</option><option>POS ຮ້ານອາຫານ</option><option>App ຈັດສົ່ງ</option></select></div><div class="form-group"><label>ໝວດໝູ່</label><select><option>ຄ່າແຮງງານ</option><option>ຄ່າວັດສະດຸ/ອຸປະກອນ</option><option>ຄ່າເດີນທາງ</option><option>ອື່ນໆ</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>ວັນທີ</label><input type="date" /></div><div class="form-group"><label>ແນບໃບບິນ</label><input type="file" /></div></div>
+    <div class="form-row"><div class="form-group"><label>ໝາຍເຫດ</label><textarea placeholder="ລາຍລະອຽດເພີ່ມ..."></textarea></div></div>
+    <div class="annotation">📐 ລາຍຈ່າຍນີ້ຈະຖືກສົ່ງເຂົ້າ Approval Workflow ອັດຕະໂນມັດ</div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+      <button class="btn" onclick="closeModal('modal-add-expense')">ຍົກເລີກ</button>
+      <button class="btn btn-primary">✅ ບັນທຶກ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Setup Installment -->
+<div class="modal-overlay" id="modal-setup-installment" style="display:none" onclick="closeModalOutside(event,'modal-setup-installment')">
+  <div class="modal">
+    <div class="modal-title">ຕັ້ງຄ່າງວດເງິນ <span class="modal-close" onclick="closeModal('modal-setup-installment')">✕</span></div>
+    <div class="form-row"><div class="form-group"><label>ມູນຄ່າໂຄງການ</label><input value="$50,000" disabled /></div><div class="form-group"><label>ຈຳນວນງວດ</label><select><option>2</option><option>3</option><option selected>4</option><option>6</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>ຮູບແບບ</label><select><option>ແບ່ງຕາມ %</option><option>ແບ່ງຕາມຈຳນວນ</option><option selected>ກຳນົດເອງ</option></select></div><div class="form-group"><label>ຜູກກັບ Milestone</label><select><option>ແມ່ນ</option><option>ບໍ່</option></select></div></div>
+    <hr class="divider">
+    <table style="font-size:12px">
+      <thead><tr><th>ງວດ</th><th>ເງື່ອນໄຂ</th><th>Milestone</th><th>ຈຳນວນ</th><th>%</th><th>ກຳນົດ</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><input value="ເຊັນສັນຍາ" style="width:130px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td><td><select style="font-size:11px;padding:3px"><option>—</option></select></td><td><input value="12,500" style="width:80px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px" /></td><td>25%</td><td><input type="date" style="font-size:11px;padding:3px;border:1px solid #ccc;border-radius:4px" /></td></tr>
+        <tr><td>2</td><td><input value="ສົ່ງມອບ Phase 1" style="width:130px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td><td><select style="font-size:11px;padding:3px"><option>Milestone 2</option></select></td><td><input value="15,000" style="width:80px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px" /></td><td>30%</td><td><input type="date" style="font-size:11px;padding:3px;border:1px solid #ccc;border-radius:4px" /></td></tr>
+        <tr><td>3</td><td><input value="ສົ່ງມອບ Phase 2" style="width:130px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td><td><select style="font-size:11px;padding:3px"><option>Milestone 3</option></select></td><td><input value="12,500" style="width:80px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px" /></td><td>25%</td><td><input type="date" style="font-size:11px;padding:3px;border:1px solid #ccc;border-radius:4px" /></td></tr>
+        <tr><td>4</td><td><input value="ປິດໂຄງການ" style="width:130px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px;font-family:inherit" /></td><td><select style="font-size:11px;padding:3px"><option>Milestone 4</option></select></td><td><input value="10,000" style="width:80px;padding:4px;font-size:11px;border:1px solid #ccc;border-radius:4px" /></td><td>20%</td><td><input type="date" style="font-size:11px;padding:3px;border:1px solid #ccc;border-radius:4px" /></td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:#888;margin-top:8px">ລວມ: $50,000 (100%) ✅</div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px">
+      <button class="btn" onclick="closeModal('modal-setup-installment')">ຍົກເລີກ</button>
+      <button class="btn btn-primary">✅ ບັນທຶກ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Invite Member -->
+<div class="modal-overlay" id="modal-invite" style="display:none" onclick="closeModalOutside(event,'modal-invite')">
+  <div class="modal">
+    <div class="modal-title">ເຊີນສະມາຊິກ <span class="modal-close" onclick="closeModal('modal-invite')">✕</span></div>
+    <div class="form-row"><div class="form-group"><label>Email *</label><input placeholder="member@company.com" /></div></div>
+    <div class="form-row"><div class="form-group"><label>Role</label><select><option>Member</option><option>Manager</option><option>Viewer</option><option>Admin</option></select></div><div class="form-group"><label>ໂຄງການ</label><select><option>ທຸກໂຄງການ</option><option>ເວັບໄຊ ABC</option><option>POS ຮ້ານອາຫານ</option></select></div></div>
+    <div class="annotation">📐 ລະບົບຈະສົ່ງ Email ເຊີນພ້ອມ Link ເຂົ້າ workspace</div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+      <button class="btn" onclick="closeModal('modal-invite')">ຍົກເລີກ</button>
+      <button class="btn btn-primary">✉ ສົ່ງຄຳເຊີນ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Risk -->
+<div class="modal-overlay" id="modal-add-risk" style="display:none" onclick="closeModalOutside(event,'modal-add-risk')">
+  <div class="modal">
+    <div class="modal-title">ບັນທຶກຄວາມສ່ຽງ <span class="modal-close" onclick="closeModal('modal-add-risk')">✕</span></div>
+    <div class="form-row"><div class="form-group"><label>ຊື່ຄວາມສ່ຽງ *</label><input placeholder="ເຊັ່ນ: ລູກຄ້າອາດປ່ຽນ Requirement" /></div></div>
+    <div class="form-row"><div class="form-group"><label>ໂຄງການ</label><select><option>ເວັບໄຊ ABC</option><option>POS</option><option>App ຈັດສົ່ງ</option></select></div><div class="form-group"><label>ຜູ້ຮັບຜິດຊອບ</label><select><option>ສົມຈິດ</option><option>ວິໄລ</option><option>ບຸນມີ</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>ໂອກາດເກີດ</label><select><option>ຕໍ່າ</option><option>ກາງ</option><option>ສູງ</option></select></div><div class="form-group"><label>ຜົນກະທົບ</label><select><option>ນ້ອຍ</option><option>ປານກາງ</option><option>ຮ້າຍແຮງ</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>ແຜນປ້ອງກັນ</label><textarea placeholder="ເຮັດແນວໃດບໍ່ໃຫ້ເກີດ..."></textarea></div></div>
+    <div class="form-row"><div class="form-group"><label>ແຜນແກ້ໄຂ</label><textarea placeholder="ຖ້າເກີດແລ້ວເຮັດແນວໃດ..."></textarea></div></div>
+    <div class="form-row"><div class="form-group"><label>ງົບສຳຮອງ</label><input placeholder="$5,000" /></div></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+      <button class="btn" onclick="closeModal('modal-add-risk')">ຍົກເລີກ</button>
+      <button class="btn btn-primary">✅ ບັນທຶກ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Navigation
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', function() {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      this.classList.add('active');
+      const screenId = this.dataset.screen;
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
+      document.getElementById('screen-' + screenId).classList.add('visible');
+      const titles = {
+        dashboard:'Dashboard', projects:'ໂຄງການ', tasks:'Tasks', milestones:'Milestones',
+        calendar:'ປະຕິທິນ', budget:'ງົບປະມານ', installments:'ງວດເງິນ', expenses:'ລາຍຈ່າຍ',
+        invoices:'Invoice', team:'ທີມງານ', notifications:'ແຈ້ງເຕືອນ', documents:'ເອກະສານ',
+        reports:'ລາຍງານ', timetracking:'Time Tracking', risks:'ຄວາມສ່ຽງ',
+        subscription:'Subscription', settings:'ຕັ້ງຄ່າ', security:'ຄວາມປອດໄພ'
+      };
+      document.getElementById('page-title').textContent = titles[screenId] || screenId;
+    });
+  });
+
+  // Project view toggle
+  function showProjectView(view) {
+    document.getElementById('project-kanban').style.display = view === 'kanban' ? 'block' : 'none';
+    document.getElementById('project-list').style.display = view === 'list' ? 'block' : 'none';
+    document.getElementById('project-gantt').style.display = view === 'gantt' ? 'block' : 'none';
+  }
+
+  // Modals
+  function showModal(id) {
+    if (id === 'modal-create-project') { wizardStep = 1; updateWizard(); }
+    document.getElementById(id).style.display = 'flex';
+  }
+  function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+  function closeModalOutside(e, id) { if(e.target === document.getElementById(id)) closeModal(id); }
+
+  // Tabs
+  document.querySelectorAll('.tabs').forEach(tabGroup => {
+    tabGroup.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  });
+
+  // ===== WIZARD =====
+  let wizardStep = 1;
+  const wizardTotalSteps = 4;
+
+  function wizardGo(step) { wizardStep = step; updateWizard(); }
+  function wizardNext() { if (wizardStep < wizardTotalSteps) { wizardStep++; updateWizard(); } }
+  function wizardBack() { if (wizardStep > 1) { wizardStep--; updateWizard(); } }
+
+  function updateWizard() {
+    for (let i = 1; i <= wizardTotalSteps; i++) {
+      document.getElementById('wz-step-' + i).style.display = i === wizardStep ? 'block' : 'none';
+    }
+    for (let i = 1; i <= wizardTotalSteps; i++) {
+      const dot = document.getElementById('wz-dot-' + i);
+      const label = dot.parentElement.querySelector('div:last-child');
+      if (i < wizardStep) {
+        dot.style.background = '#222'; dot.style.borderColor = '#222'; dot.style.color = '#fff'; dot.textContent = '\u2713';
+        label.style.color = '#222'; label.style.fontWeight = '500';
+      } else if (i === wizardStep) {
+        dot.style.background = '#222'; dot.style.borderColor = '#222'; dot.style.color = '#fff'; dot.textContent = i;
+        label.style.color = '#222'; label.style.fontWeight = '600';
+      } else {
+        dot.style.background = '#fff'; dot.style.borderColor = '#ccc'; dot.style.color = '#999'; dot.textContent = i;
+        label.style.color = '#999'; label.style.fontWeight = '400';
+      }
+    }
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('wz-line-' + i).style.background = i < wizardStep ? '#222' : '#ddd';
+    }
+    document.getElementById('wz-btn-back').style.display = wizardStep > 1 ? 'inline-block' : 'none';
+    document.getElementById('wz-btn-skip').style.display = (wizardStep === 2 || wizardStep === 3) ? 'inline-block' : 'none';
+    document.getElementById('wz-btn-next').style.display = wizardStep < wizardTotalSteps ? 'inline-block' : 'none';
+    document.getElementById('wz-btn-create').style.display = wizardStep === wizardTotalSteps ? 'inline-block' : 'none';
+  }
+
+  function wizardCreate() {
+    closeModal('modal-create-project');
+    wizardStep = 1; updateWizard();
+    alert('\u2705 \u0eaa\u0ec9\u0eb2\u0e87\u0ec2\u0e84\u0e87\u0e81\u0eb2\u0e99\u0eaa\u0eb3\u0ec0\u0ea5\u0eb1\u0e94!\n\n\u0ea5\u0eb0\u0e9a\u0ebb\u0e9a\u0ec4\u0e94\u0ec9\u0eaa\u0ec9\u0eb2\u0e87 & Link:\n\u2022 \ud83d\udcc1 \u0ec2\u0e84\u0e87\u0e81\u0eb2\u0e99: \u0eaa\u0ec9\u0eb2\u0e87\u0ec0\u0ea7\u0eb1\u0e9a\u0ec4\u0e8a ABC\n\u2022 \ud83d\udcb0 \u0e87\u0ebb\u0e9a\u0e9b\u0eb0\u0ea1\u0eb2\u0e99: $50,000 \u2192 \u0edc\u0ec9\u0eb2\u0e87\u0ebb\u0e9a\n\u2022 \ud83d\udcb3 \u0e87\u0ea7\u0e94\u0ec0\u0e87\u0eb4\u0e99: 4 \u0e87\u0ea7\u0e94 \u2192 \u0edc\u0ec9\u0eb2\u0e87\u0ea7\u0e94\n\u2022 \ud83c\udfc1 Milestones: 4 \u2192 \u0edc\u0ec9\u0eb2 Milestones\n\u2022 \ud83d\udc65 \u0e97\u0eb5\u0ea1: 3 \u0e84\u0ebb\u0e99 \u2192 \u0edc\u0ec9\u0eb2\u0e97\u0eb5\u0ea1');
+  }
+</script>
+
+</body>
+</html>
